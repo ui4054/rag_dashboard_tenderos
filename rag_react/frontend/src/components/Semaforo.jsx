@@ -130,68 +130,99 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
         </button>
       </div>
 
-      {vistaActiva === 'matriz' ? (
-        <div>
-          {Object.keys(matrizCorrelacion).length === 0 ? (
-            <div style={{ color: 'var(--text-muted)' }}>La matriz de correlación requiere al menos 2 tenderos filtrados para calcularse.</div>
-          ) : (
-            <div className="matriz-wrapper">
-              <table className="matriz-table">
-                <thead>
-                  <tr>
-                    <th className="matriz-th matriz-th-left">Dimensiones</th>
-                    {dimensiones.map((dim) => (
-                      <th key={dim} className="matriz-th" title={dim}>
-                        {acortarNombre(dim)}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {dimensiones.map((dimFila) => (
-                    <tr key={dimFila}>
-                      <th className="matriz-th matriz-th-left" title={dimFila}>{acortarNombre(dimFila)}</th>
-                      {dimensiones.map((dimCol) => {
-                        const val = matrizCorrelacion[dimCol]?.[dimFila] ?? 0;
-                        const cellStyle = getCellColor(val);
-                        return (
-                          <td
-                            key={`${dimFila}-${dimCol}`}
-                            className="matriz-cell"
-                            style={{ background: cellStyle.bg, color: cellStyle.color }}
-                            onMouseEnter={() => setHoveredCell({ d1: dimFila, d2: dimCol, val })}
-                            onMouseLeave={() => setHoveredCell(null)}
-                            onClick={() => handleCellClick(dimFila, dimCol)}
-                            title={`Clic para analizar asociación ordinal (Spearman) entre ${dimFila} y ${dimCol}`}
-                          >
-                            {val.toFixed(2)}
-                          </td>
-                        );
-                      })}
+      {/* VISTA ESCRITORIO CONDICIONAL (Matriz o Semáforo según tab activa) */}
+      <div className="desktop-view-container">
+        {vistaActiva === 'matriz' ? (
+          <div>
+            {Object.keys(matrizCorrelacion).length === 0 ? (
+              <div style={{ color: 'var(--text-muted)' }}>La matriz de correlación requiere al menos 2 tenderos filtrados para calcularse.</div>
+            ) : (
+              <div className="matriz-wrapper">
+                <table className="matriz-table">
+                  <thead>
+                    <tr>
+                      <th className="matriz-th matriz-th-left">Dimensiones</th>
+                      {dimensiones.map((dim) => (
+                        <th key={dim} className="matriz-th" title={dim}>
+                          {acortarNombre(dim)}
+                        </th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {dimensiones.map((dimFila) => (
+                      <tr key={dimFila}>
+                        <th className="matriz-th matriz-th-left" title={dimFila}>{acortarNombre(dimFila)}</th>
+                        {dimensiones.map((dimCol) => {
+                          const val = matrizCorrelacion[dimCol]?.[dimFila] ?? 0;
+                          const cellStyle = getCellColor(val);
+                          return (
+                            <td
+                              key={`${dimFila}-${dimCol}`}
+                              className="matriz-cell"
+                              style={{ background: cellStyle.bg, color: cellStyle.color }}
+                              onMouseEnter={() => setHoveredCell({ d1: dimFila, d2: dimCol, val })}
+                              onMouseLeave={() => setHoveredCell(null)}
+                              onClick={() => handleCellClick(dimFila, dimCol)}
+                              title={`Clic para analizar asociación ordinal (Spearman) entre ${dimFila} y ${dimCol}`}
+                            >
+                              {val.toFixed(2)}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-              <div className="matriz-tooltip-box">
-                <Info size={20} style={{ color: 'var(--accent-light)', flexShrink: 0 }} />
-                {hoveredCell ? (
-                  <div>
-                    Cruce: <strong>{hoveredCell.d1}</strong> ↔ <strong>{hoveredCell.d2}</strong> | ρ Spearman: <strong style={{ background: getCellColor(hoveredCell.val).bg, color: getCellColor(hoveredCell.val).color, padding: '2px 8px', borderRadius: '4px', fontWeight: '800', boxShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{hoveredCell.val.toFixed(2)}</strong> ({getNivelCorrelacionLabel(hoveredCell.val)}) | <em>Clic en la celda para analizar estadígrafo bivariado.</em>
-                  </div>
-                ) : (
-                  <div style={{ color: 'var(--text-muted)' }}>Pasa el cursor sobre cualquier celda de la matriz para ver la fuerza de asociación. Haz clic en una celda para analizar la métrica bivariada robusta.</div>
-                )}
+                <div className="matriz-tooltip-box">
+                  <Info size={20} style={{ color: 'var(--accent-light)', flexShrink: 0 }} />
+                  {hoveredCell ? (
+                    <div>
+                      Cruce: <strong>{hoveredCell.d1}</strong> ↔ <strong>{hoveredCell.d2}</strong> | ρ Spearman: <strong style={{ background: getCellColor(hoveredCell.val).bg, color: getCellColor(hoveredCell.val).color, padding: '2px 8px', borderRadius: '4px', fontWeight: '800', boxShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{hoveredCell.val.toFixed(2)}</strong> ({getNivelCorrelacionLabel(hoveredCell.val)}) | <em>Clic en la celda para analizar estadígrafo bivariado.</em>
+                    </div>
+                  ) : (
+                    <div style={{ color: 'var(--text-muted)' }}>Pasa el cursor sobre cualquier celda de la matriz para ver la fuerza de asociación. Haz clic en una celda para analizar la métrica bivariada robusta.</div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      ) : (
+            )}
+          </div>
+        ) : (
+          <div className="semaforo-grid">
+            {entradas.map(([dim, val]) => {
+              const cat = clasificar(val);
+              return (
+                <div key={dim} className="semaforo-card" style={{ background: cat.bg, borderLeft: `4px solid ${cat.border}` }}>
+                  <div className="semaforo-card-content">
+                    <div className="semaforo-card-top">
+                      <div className="semaforo-card-left">
+                        <span className="semaforo-dot" style={{ background: cat.color, boxShadow: `0 0 8px ${cat.color}` }} />
+                        <span className="semaforo-dim-name">{dim}</span>
+                      </div>
+                      <div className="semaforo-card-right">
+                        <span className="semaforo-badge" style={{ color: cat.color }}>{cat.label}</span>
+                        <span className="semaforo-value">{val.toFixed(2)}</span>
+                      </div>
+                    </div>
+                    <div className="semaforo-bar-bg" title={`Puntuación: ${val.toFixed(2)} / 5.0`}>
+                      <div className="semaforo-bar-fill" style={{ width: `${(val / 5) * 100}%`, background: cat.color }} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* VISTA MÓVIL FIJA (Solo Semáforo Psicométrico) */}
+      <div className="mobile-view-container">
         <div className="semaforo-grid">
           {entradas.map(([dim, val]) => {
             const cat = clasificar(val);
             return (
-              <div key={dim} className="semaforo-card" style={{ background: cat.bg, borderLeft: `4px solid ${cat.border}` }}>
+              <div key={`mobile-${dim}`} className="semaforo-card" style={{ background: cat.bg, borderLeft: `4px solid ${cat.border}` }}>
                 <div className="semaforo-card-content">
                   <div className="semaforo-card-top">
                     <div className="semaforo-card-left">
@@ -211,7 +242,7 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
             );
           })}
         </div>
-      )}
+      </div>
 
       {/* MODAL ESTADÍGRAFO BIVARIADO */}
       {(cargandoModal || modalData || errorModal) && (

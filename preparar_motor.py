@@ -38,7 +38,13 @@ def ingesta_minimalista():
     
     # Instalar y cargar extensión FTS
     con.execute("INSTALL fts; LOAD fts;")
-    con.execute("PRAGMA create_fts_index('manuscrito_teorico', 'id', 'contenido')")
+    con.execute("PRAGMA create_fts_index('manuscrito_teorico', 'id', 'contenido', overwrite=1)")
+    
+    # Crear la vista de oro
+    print("-> Creando Vista de Oro (15 Dimensiones)...")
+    from agente_maestro import AgenteMaestro
+    agente = AgenteMaestro()
+    agente.crear_vista_oro()
     
     print(f"[OK] {len(fragmentos)} fragmentos indexados en DuckDB (FTS activo).")
     print("\n--- INGESTA COMPLETADA ---")

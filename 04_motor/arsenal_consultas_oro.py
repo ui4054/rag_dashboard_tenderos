@@ -2,7 +2,7 @@ import duckdb
 import pandas as pd
 import os
 
-base_dir = r"C:\nubecita\OneDrive\Uniminuto\Investigacion_tenderos\RAG_CONSULTA"
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 db_path = os.path.join(base_dir, "04_motor", "investigacion_pura.db")
 
 def ejecutar_arsenal():

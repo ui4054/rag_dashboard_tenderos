@@ -3,7 +3,8 @@ import pandas as pd
 import os
 
 def run_sanity_check():
-    db_path = r"c:\nubecita\OneDrive\Uniminuto\Investigacion_tenderos\RAG_CONSULTA\04_motor\investigacion_pura.db"
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    db_path = os.path.join(base_dir, "04_motor", "investigacion_pura.db")
     con = duckdb.connect(db_path)
     
     print("--- SANITY CHECK: CAPA DE ORO ---")

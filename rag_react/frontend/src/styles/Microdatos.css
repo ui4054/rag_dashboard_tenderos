@@ -128,3 +128,43 @@
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Responsividad para móviles (texto arriba y botones debajo con máxima especificidad) */
+@media (max-width: 768px) {
+  .microdatos-container {
+    padding: 16px !important;
+  }
+  .microdatos-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .microdatos-title-box {
+    width: 100% !important;
+    align-items: flex-start !important;
+  }
+  .microdatos-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+  }
+  .btn-toggle-table, .btn-download-csv {
+    flex: 1 !important;
+    justify-content: center !important;
+    padding: 12px 10px !important;
+    font-size: 0.85rem !important;
+    text-align: center !important;
+  }
+  .microdatos-title {
+    font-size: 1.25rem !important;
+  }
+  .microdatos-subtitle {
+    font-size: 0.8rem !important;
+    margin-top: 4px !important;
+  }
+  .table-wrapper {
+    margin-top: 16px !important;
+    max-height: 400px !important;
+  }
+}

@@ -352,3 +352,39 @@
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* Responsividad para Móviles (Matriz oculta, solo semáforo activo) */
+.mobile-view-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .semaforo-tabs {
+    display: none !important;
+  }
+  .desktop-view-container {
+    display: none !important;
+  }
+  .mobile-view-container {
+    display: block !important;
+  }
+  .semaforo-container {
+    padding: 16px;
+    margin-top: 16px;
+  }
+  .semaforo-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .semaforo-title {
+    font-size: 1.15rem;
+  }
+  .semaforo-grid {
+    grid-template-columns: 1fr;
+  }
+  .bivariado-modal-card {
+    max-width: 95%;
+  }
+}

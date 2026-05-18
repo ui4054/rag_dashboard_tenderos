@@ -2,8 +2,7 @@ import os
 import duckdb
 import sys
 
-# Forzar ruta
-base_dir = r"C:\nubecita\OneDrive\Uniminuto\Investigacion_tenderos\RAG_CONSULTA"
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 db_path = os.path.join(base_dir, "04_motor", "investigacion_pura.db")
 
 print("====================================================")
@@ -33,5 +32,3 @@ try:
 
 except Exception as e:
     print(f"\n[ERROR] El motor de datos fallo: {e}")
-
-input("\nPresiona Enter para salir...")

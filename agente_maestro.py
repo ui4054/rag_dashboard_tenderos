@@ -36,8 +36,9 @@ class AgenteMaestro:
         CREATE OR REPLACE VIEW vista_investigacion AS 
         SELECT 
             id,
+            negocio_ubicacion as "Ubicación Original",
             CASE 
-                WHEN negocio_ubicacion ILIKE '%Lérida%' OR negocio_ubicacion ILIKE '%Lerida%' THEN 'Nodo Lérida'
+                WHEN negocio_ubicacion ILIKE '%Lérida%' OR negocio_ubicacion ILIKE '%Lerida%' OR negocio_ubicacion ILIKE '%Sabroso%' OR negocio_ubicacion ILIKE '%brisas%' OR negocio_ubicacion ILIKE '%reposo%' OR negocio_ubicacion ILIKE '%protecho%' OR negocio_ubicacion ILIKE '%Paz%' OR negocio_ubicacion ILIKE '%Resurgir%' OR negocio_ubicacion ILIKE '%Ciuadela%' OR negocio_ubicacion ILIKE '%jardin%' OR negocio_ubicacion ILIKE '%Aleman%' OR negocio_ubicacion ILIKE '%Galan%' OR negocio_ubicacion ILIKE '%Adraofasa%' OR negocio_ubicacion ILIKE '%Mango%' OR negocio_ubicacion ILIKE '%Candelaria%' THEN 'Nodo Lérida'
                 WHEN negocio_ubicacion ILIKE '%Mariquita%' THEN 'Nodo Mariquita'
                 WHEN negocio_ubicacion ILIKE '%Armero%' THEN 'Nodo Armero Guayabal'
                 ELSE 'Nodo Otros'
