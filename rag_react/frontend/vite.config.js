@@ -5,9 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Proxy para desarrollo: redirige /api al backend FastAPI local
+    // Proxy para desarrollo: redirige /api y /auth al backend FastAPI local
     proxy: {
       '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+      '/auth': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true,
       }

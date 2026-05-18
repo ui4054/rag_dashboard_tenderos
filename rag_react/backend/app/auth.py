@@ -5,8 +5,8 @@ from fastapi import Security, HTTPException, status, Request, Response
 from fastapi.security import APIKeyHeader
 from dotenv import load_dotenv
 
-# Cargamos el .env desde el directorio raíz
-root_env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env")
+# Cargamos el .env desde el directorio raíz (subiendo 3 niveles desde backend/app/auth.py hasta el directorio raíz del repo)
+root_env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".env"))
 load_dotenv(root_env_path)
 
 # ─── CONFIGURACIÓN ─────────────────────────────────────────

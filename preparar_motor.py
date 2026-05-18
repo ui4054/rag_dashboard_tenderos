@@ -45,6 +45,3 @@ def ingesta_minimalista():
 
 if __name__ == "__main__":
     ingesta_minimalista()
-
-if __name__ == "__main__":
-    ingesta_minimalista()

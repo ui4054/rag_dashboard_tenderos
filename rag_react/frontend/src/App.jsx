@@ -128,7 +128,7 @@ export default function App() {
           <>
             <header className="dashboard-header">
               <div>
-                <h1 className="dashboard-title">Análisis Mutivariado</h1>
+                <h1 className="dashboard-title">Análisis Multivariado</h1>
                 <p className="dashboard-subtitle">Tenderos del Norte del Tolima</p>
               </div>
               <button
