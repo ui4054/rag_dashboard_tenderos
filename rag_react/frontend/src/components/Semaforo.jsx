@@ -25,12 +25,36 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
   };
 
   const getCellColor = (val) => {
-    if (val === 1) return { bg: 'rgba(51, 65, 85, 0.8)', color: '#94a3b8' };
-    if (val > 0.7) return { bg: 'rgba(34, 197, 94, 0.8)', color: '#ffffff' };
-    if (val > 0.4) return { bg: 'rgba(235, 235, 18, 0.7)', color: '#e2e8f0' };
-    if (val > -0.1) return { bg: 'rgba(204, 26, 26, 0.71)', color: '#94a3b8' };
-    if (val > -0.6) return { bg: 'rgba(248, 0, 0, 1)', color: '#e2e8f0' };
-    return { bg: 'rgba(239, 68, 68, 0.8)', color: '#ffffff' };
+    if (val === 1) return { bg: 'var(--border-color)', color: 'var(--text-main)' };
+
+    const red = [239, 68, 68];
+    const yellow = [250, 204, 21];
+    const green = [22, 163, 74];
+
+    let r, g, b;
+    if (val >= 0) {
+      const f = Math.min(val, 1);
+      r = Math.round(yellow[0] + f * (green[0] - yellow[0]));
+      g = Math.round(yellow[1] + f * (green[1] - yellow[1]));
+      b = Math.round(yellow[2] + f * (green[2] - yellow[2]));
+    } else {
+      const f = Math.min(Math.abs(val), 1);
+      r = Math.round(yellow[0] + f * (red[0] - yellow[0]));
+      g = Math.round(yellow[1] + f * (red[1] - yellow[1]));
+      b = Math.round(yellow[2] + f * (red[2] - yellow[2]));
+    }
+    
+    const textColor = val <= -0.7 ? '#ffffff' : '#0f172a';
+    return { bg: `rgb(${r}, ${g}, ${b})`, color: textColor };
+  };
+
+  const getNivelCorrelacionLabel = (val) => {
+    if (val === 1) return 'Identidad (Misma Variable)';
+    if (val >= 0.8) return 'Correlación Fuerte Positiva';
+    if (val >= 0.3) return 'Correlación Moderada Positiva';
+    if (val > -0.3) return 'Correlación Neutra / Sin Asociación';
+    if (val > -0.8) return 'Correlación Moderada Negativa';
+    return 'Correlación Fuerte Negativa';
   };
 
   const dimensiones = Object.keys(promedios);
@@ -64,7 +88,7 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
         setModalData(stats);
       }
     } catch (err) {
-      setErrorModal('Error calculando el estadígrafo de regresión en el backend.');
+      setErrorModal('Error calculando la métrica de asociación en el backend.');
     } finally {
       setCargandoModal(false);
     }
@@ -132,7 +156,7 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
                             onMouseEnter={() => setHoveredCell({ d1: dimFila, d2: dimCol, val })}
                             onMouseLeave={() => setHoveredCell(null)}
                             onClick={() => handleCellClick(dimFila, dimCol)}
-                            title={`Clic para ver regresión lineal entre ${dimFila} y ${dimCol}`}
+                            title={`Clic para analizar asociación ordinal (Spearman) entre ${dimFila} y ${dimCol}`}
                           >
                             {val.toFixed(2)}
                           </td>
@@ -147,10 +171,10 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
                 <Info size={20} style={{ color: 'var(--accent-light)', flexShrink: 0 }} />
                 {hoveredCell ? (
                   <div>
-                    Cruce: <strong>{hoveredCell.d1}</strong> ↔ <strong>{hoveredCell.d2}</strong> | ρ Spearman: <strong style={{ color: getCellColor(hoveredCell.val).color, background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{hoveredCell.val.toFixed(2)}</strong> ({hoveredCell.val > 0.6 ? 'Correlación Fuerte Positiva' : hoveredCell.val < -0.6 ? 'Correlación Fuerte Negativa' : 'Correlación Moderada/Neutra'}) | <em>Clic en la celda para abrir estadígrafo de regresión.</em>
+                    Cruce: <strong>{hoveredCell.d1}</strong> ↔ <strong>{hoveredCell.d2}</strong> | ρ Spearman: <strong style={{ color: getCellColor(hoveredCell.val).color, background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{hoveredCell.val.toFixed(2)}</strong> ({getNivelCorrelacionLabel(hoveredCell.val)}) | <em>Clic en la celda para analizar estadígrafo bivariado.</em>
                   </div>
                 ) : (
-                  <div style={{ color: 'var(--text-muted)' }}>Pasa el cursor sobre cualquier celda de la matriz para ver el detalle. Haz clic en una celda para abrir el modelo de regresión lineal.</div>
+                  <div style={{ color: 'var(--text-muted)' }}>Pasa el cursor sobre cualquier celda de la matriz para ver la fuerza de asociación. Haz clic en una celda para analizar la métrica bivariada robusta.</div>
                 )}
               </div>
             </div>
@@ -182,8 +206,8 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
           <div className="bivariado-modal-card" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <div>
-                <h2 className="modal-title">Estadígrafo de Regresión Bivariada</h2>
-                <p className="modal-subtitle">Análisis de Mínimos Cuadrados Ordinarios (OLS) sobre submuestra activa</p>
+                <h2 className="modal-title">Relación Bivariada Robusta</h2>
+                <p className="modal-subtitle">Análisis de Correlación Ordinal (ρ de Spearman) sobre submuestra activa</p>
               </div>
               <button onClick={() => { setModalData(null); setErrorModal(''); setCargandoModal(false); }} className="btn-close-modal">
                 <X size={20} />
@@ -193,7 +217,7 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
               {cargandoModal && (
                 <div style={{ padding: '40px', textAlign: 'center', color: 'var(--accent-light)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
                   <RefreshCw size={36} className="spin" />
-                  <p>Calculando regresión en Python (scipy.stats)...</p>
+                  <p>Calculando métrica ordinal en Python (scipy.stats.spearmanr)...</p>
                 </div>
               )}
 
@@ -234,16 +258,9 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
                     </div>
                   </div>
 
-                  <div className="ecuacion-mini-box" style={{ justifyContent: 'center', textAlign: 'center' }}>
-                    <div className="ecuacion-mini-left" style={{ alignItems: 'center' }}>
-                      <div className="ecuacion-title">Ecuación de la Recta (OLS)</div>
-                      <div className="ecuacion-text">{modalData.ecuacion}</div>
-                    </div>
-                  </div>
-
                   <div className="interpretacion-mini">
-                    <strong>Interpretación:</strong> +1pt en X = <strong>{modalData.slope > 0 ? '+' : ''}{modalData.slope}</strong>pt en Y.
-                    {modalData.p_value < 0.05 ? <span style={{ color: '#22c55e', marginLeft: '4px' }}>Significativo.</span> : <span style={{ color: '#eab308', marginLeft: '4px' }}>No significativo.</span>}
+                    <strong>Fuerza de Asociación:</strong> {getNivelCorrelacionLabel(modalData.rho_spearman ?? modalData.r_pearson)}.
+                    {modalData.p_value < 0.05 ? <span style={{ color: '#22c55e', display: 'block', marginTop: '4px' }}>Estadísticamente Significativo (p &lt; 0.05).</span> : <span style={{ color: '#eab308', display: 'block', marginTop: '4px' }}>Asociación no significativa.</span>}
                   </div>
                 </div>
               )}

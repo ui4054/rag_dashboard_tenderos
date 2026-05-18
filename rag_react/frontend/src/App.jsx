@@ -6,6 +6,7 @@ import { Demografias } from './components/Demografias';
 import { HipercuboCards } from './components/HipercuboCards';
 import { MicrodatosExplorer } from './components/MicrodatosExplorer';
 import { RagTerminal } from './components/RagTerminal';
+import { ThemeToggle } from './components/ThemeToggle';
 import { Store, ShieldCheck, Activity, Users, AlertTriangle, Filter, RefreshCw } from 'lucide-react';
 import './styles/App.css';
 
@@ -131,14 +132,17 @@ export default function App() {
                 <h1 className="dashboard-title">Análisis Multivariado</h1>
                 <p className="dashboard-subtitle">Tenderos del Norte del Tolima</p>
               </div>
-              <button
-                onClick={actualizarKpis}
-                disabled={cargando}
-                className="btn-sync"
-              >
-                <RefreshCw size={18} className={cargando ? "spin" : ""} />
-                <span>{cargando ? 'Sincronizando...' : 'Actualizar'}</span>
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <ThemeToggle />
+                <button
+                  onClick={actualizarKpis}
+                  disabled={cargando}
+                  className="btn-sync"
+                >
+                  <RefreshCw size={18} className={cargando ? "spin" : ""} />
+                  <span>{cargando ? 'Sincronizando...' : 'Actualizar'}</span>
+                </button>
+              </div>
             </header>
 
             {/* FILA DE KPIS */}

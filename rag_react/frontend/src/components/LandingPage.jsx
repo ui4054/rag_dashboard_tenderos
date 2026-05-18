@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TolimaMap } from './TolimaMap';
+import { ThemeToggle } from './ThemeToggle';
 import {
   ArrowRight, Users, MapPin, Brain, BarChart3,
   Database, MessageSquare, Grid, TrendingUp, BookOpen, GraduationCap
@@ -10,6 +11,9 @@ import '../styles/Landing.css';
 export const LandingPage = () => {
   return (
     <div className="landing-page">
+      <div style={{ position: 'absolute', top: '24px', right: '24px', zIndex: 100 }}>
+        <ThemeToggle />
+      </div>
 
       {/* ═══════════ HERO SECTION ═══════════ */}
       <section className="hero-section">

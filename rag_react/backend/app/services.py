@@ -1,6 +1,7 @@
 import sys
 import os
 import pandas as pd
+import numpy as np
 import scipy.stats as stats
 from typing import Dict, Any, List
 
@@ -175,6 +176,12 @@ class RagService:
         x = df_f[req.dim1]
         y = df_f[req.dim2]
         
+        if x.nunique() <= 1 or y.nunique() <= 1:
+            return {
+                "error": f"Varianza nula en la submuestra de {n_muestral} tenderos para '{req.dim1}' o '{req.dim2}'. No es posible calcular la correlación ordinal (Spearman).",
+                "n_muestral": n_muestral
+            }
+        
         # Rho de Spearman: correlación de rangos, apropiada para escalas Likert (ordinales)
         rho_spearman, p_value_spearman = stats.spearmanr(x, y)
         
@@ -184,17 +191,27 @@ class RagService:
         # Puntos crudos para el diagrama de dispersión (scatter)
         puntos = [{"x": float(px), "y": float(py)} for px, py in zip(x.tolist(), y.tolist())]
         
+        def clean_float(v):
+            return 0.0 if (v is None or np.isnan(v) or np.isinf(v)) else round(float(v), 4)
+            
+        rho = clean_float(rho_spearman)
+        r2 = clean_float(rho_spearman**2 if rho_spearman is not None and not np.isnan(rho_spearman) else 0.0)
+        pval = clean_float(p_value_spearman)
+        s = clean_float(slope)
+        i = clean_float(intercept)
+        se = clean_float(std_err)
+        
         return {
             "dim1": req.dim1,
             "dim2": req.dim2,
             "n_muestral": n_muestral,
-            "rho_spearman": round(rho_spearman, 4),
-            "r_squared": round(rho_spearman**2, 4),
-            "p_value": round(p_value_spearman, 5),
-            "slope": round(slope, 4),
-            "intercept": round(intercept, 4),
-            "std_err": round(std_err, 4),
-            "ecuacion": f"y = {round(slope, 3)}x + {round(intercept, 3)}",
+            "rho_spearman": rho,
+            "r_squared": r2,
+            "p_value": pval,
+            "slope": s,
+            "intercept": i,
+            "std_err": se,
+            "ecuacion": f"y = {round(s, 3)}x + {round(i, 3)}",
             "puntos": puntos
         }
 
