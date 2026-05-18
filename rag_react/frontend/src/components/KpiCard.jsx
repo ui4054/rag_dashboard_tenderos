@@ -1,35 +1,35 @@
 import React from 'react';
+import '../styles/KpiCard.css';
 
 export const KpiCard = ({ title, value, subvalue, icon: Icon, color = "#0284c7", isGauge = false, maxGauge = 100 }) => {
   const percentage = isGauge ? Math.min(100, Math.round((Number(value) / maxGauge) * 100)) : 0;
 
   return (
-    <div className="glass-card" style={{ padding: '20px', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-        <h4 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)' }}>
+    <div className="glass-card kpi-card-box">
+      <div className="kpi-card-header">
+        <h4 className="kpi-card-title">
           {title}
         </h4>
         {Icon && <Icon size={22} style={{ color: color }} />}
       </div>
       
-      <div style={{ fontSize: '2.2rem', fontWeight: '800', color: 'var(--text-main)', marginBottom: '4px' }}>
+      <div className="kpi-card-value">
         {value}
       </div>
 
       {subvalue && (
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+        <div className="kpi-card-subvalue">
           {subvalue}
         </div>
       )}
 
       {isGauge && (
-        <div style={{ marginTop: '16px', width: '100%', background: 'var(--border-color)', height: '6px', borderRadius: '3px', overflow: 'hidden' }}>
+        <div className="kpi-gauge-track">
           <div 
+            className="kpi-gauge-fill"
             style={{ 
               width: `${percentage}%`, 
-              height: '100%', 
-              background: color, 
-              transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              backgroundColor: color, 
               boxShadow: `0 0 10px ${color}`
             }} 
           />

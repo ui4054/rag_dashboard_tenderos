@@ -1,0 +1,49 @@
+.kpi-card-box {
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.kpi-card-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.kpi-card-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.kpi-card-subvalue {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.kpi-gauge-track {
+  margin-top: 16px;
+  width: 100%;
+  background-color: var(--border-color);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.kpi-gauge-fill {
+  height: 100%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 3px;
+}

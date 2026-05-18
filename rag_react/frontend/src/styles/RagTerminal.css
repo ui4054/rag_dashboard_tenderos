@@ -1,0 +1,121 @@
+.terminal-box {
+  padding: 28px;
+  margin-top: 24px;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.terminal-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.terminal-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.terminal-input-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.terminal-textarea {
+  flex: 1;
+  resize: vertical;
+  font-size: 0.95rem;
+}
+
+.btn-send-rag {
+  padding: 0 24px;
+  background-color: var(--accent-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-send-rag:hover:not(:disabled) {
+  background-color: var(--accent-light);
+}
+
+.btn-send-rag:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sugerencias-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.sugerencias-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.btn-sugerencia {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  font-weight: 400;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-sugerencia:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-light);
+}
+
+.terminal-error-box {
+  background-color: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  padding: 16px;
+  border-radius: 8px;
+  color: #ef4444;
+  margin-bottom: 16px;
+}
+
+.terminal-output-card {
+  background-color: rgba(11, 15, 25, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+
+.output-badge {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.output-text {
+  white-space: pre-line;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
