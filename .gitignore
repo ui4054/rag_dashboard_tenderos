@@ -1,0 +1,41 @@
+# Archivos de Python y Caché
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Bases de Datos Temporales y WALs
+*.db.wal
+*.db-journal
+*.sqlite3
+
+# Secretos y Certificados (CRÍTICO)
+certs/
+*.pem
+*.key
+*.crt
+.env
+.env.local
+.env.*.local
+*.pfx
+
+# Frontend React / Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+rag_react/frontend/dist/
+
+# Entornos OS y Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

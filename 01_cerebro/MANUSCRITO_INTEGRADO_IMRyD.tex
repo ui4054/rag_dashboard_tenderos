@@ -1,0 +1,680 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{needspace}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{hanging}
+\usepackage[round,authoryear]{natbib}
+
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+\captionsetup{labelfont={bf}, textfont=normalfont, labelsep=period}
+
+% T\'itulos en Negro S\'olido (Fuente Nativa)
+\titleformat{\section}{\Large\bfseries\color{black}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{black}}{\thesubsection}{1em}{}
+
+\title{\vspace{-2cm}\huge \textbf{Factores Sociodemogr\'aficos, Estructurales y Psicom\'etricos de la Formalizaci\'on: Un An\'alisis Multivariado en el Sector Tendero del Norte del Tolima}\\[0.6em]
+\large \textit{Sociodemographic, Structural, and Psychometric Factors of Formalization: A Multivariate Analysis in the Neighborhood Store Sector of Northern Tolima, Colombia}}
+\author{
+    \textbf{Miguel Mart\'inez}\thanks{miguel.martinez@uniminuto.edu.co} \\
+    \small Corporaci\'on Universitaria Minuto de Dios -- Uniminuto, L\'erida, Tolima
+    \and
+    \textbf{Erika Conde}\thanks{erika.conde@uniminuto.edu.co} \\
+    \small Corporaci\'on Universitaria Minuto de Dios -- Uniminuto, Ibagu\'e, Tolima
+}
+\date{\small \today}
+
+\begin{document}
+\maketitle
+
+\vspace{1em}
+\noindent\textbf{Resumen.} El estudio explora los factores asociados a la formalización comercial de las tiendas de barrio en el Norte del Tolima, Colombia. Se buscó identificar la asociación entre variables sociodemográficas, del negocio y actitudinales con el estado de cumplimiento normativo de estos micronegocios. Mediante un diseño transversal y exploratorio ($n=100$), se aplicó un análisis de reducción dimensional y se estimó un modelo de regresión logística binaria (Logit). Los resultados indican que la formalización se asocia significativamente con la antigüedad del negocio ($OR=0.11$, $p<0.001$), la modalidad de arriendo en la tenencia del local ($OR=4.64$, $p=0.006$) y la ubicación geográfica ($OR=5.31$, $p=0.001$). El modelo presentó un ajuste satisfactorio ($AUC=0.81$, Pseudo-$R^2=0.26$). Los hallazgos sugieren que, en la muestra analizada, la formalización se vincula prioritariamente a características operativas del negocio y del entorno, más que a atributos individuales del tendero.
+
+\vspace{0.5em}
+\noindent\textbf{Palabras clave:} Formalizaci\'on comercial; Sector tendero; Modelo Logit; Reducci\'on dimensional; Norte del Tolima; Microempresas.
+
+\vspace{1.5em}
+
+\noindent\textbf{Abstract.} This study explores the factors associated with business formalization of neighborhood stores in Northern Tolima, Colombia. The goal was to identify the association between sociodemographic, business-related, and attitudinal variables and the regulatory compliance status of these microbusinesses. Using a cross-sectional and exploratory design ($n=100$), a dimensionality reduction analysis and a binary logistic regression model (Logit) were applied. Results indicate that formalization is significantly associated with business maturity ($OR=0.11$, $p<0.001$), rental-based local tenure ($OR=4.64$, $p=0.006$), and geographical location ($OR=5.31$, $p=0.001$). The model showed adequate performance ($AUC=0.81$, Pseudo-$R^2=0.26$). Findings suggest that, within the analyzed sample, commercial formalization is linked primarily to business operations and territorial conditions rather than to the individual characteristics of the owner.
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} Commercial formalization; Neighborhood stores; Logit model; Dimensional reduction; Northern Tolima; Microenterprises.
+
+\section{Introducci\'on}
+La formalización comercial de las tiendas de barrio es un problema relevante para el análisis empírico de los micronegocios en contextos donde la informalidad tiene alta presencia. En el Norte del Tolima, aunque existen registros institucionales de la \citet{camara2025}, la caracterización directa de los establecimientos permite describir con mayor detalle las condiciones bajo las cuales opera el sector tendero. En este contexto, el estudio examina los factores asociados a la formalización comercial en una muestra de negocios ubicados en municipios de la zona.
+
+\par
+La pertinencia del análisis se apoya en antecedentes nacionales sobre informalidad y micronegocios. \citet{fernandez2020} destaca el papel de los costos de transacción institucionales, mientras que \citet{castiblanco2025} documentan limitaciones en la gestión de este tipo de unidades productivas. A su vez, \citet{ruiloba2024} aporta evidencia sobre supervivencia empresarial. Sin embargo, aún persiste la necesidad de evaluar cómo estos factores se expresan en contextos regionales específicos como el Norte del Tolima.
+
+\par
+Con este propósito, el estudio buscó identificar y cuantificar la asociación entre factores sociodemográficos, estructurales y psicométricos, junto con la formalización comercial de las tiendas de barrio en el Norte del Tolima. En particular, se planteó: (a) describir las características sociodemográficas de los tenderos encuestados; (b) estimar, mediante un modelo de regresión logística (Logit), la asociación entre variables estructurales y territoriales y la probabilidad de formalización; y (c) resumir los rasgos psicométricos de orientación emprendedora mediante una técnica de reducción dimensional basada en el análisis por componentes principales (ACP). Para ello, se aplicó una estrategia multivariada sobre una muestra analítica de 100 casos obtenida mediante muestreo por conveniencia. Los resultados se presentan como evidencia exploratoria y deben interpretarse de acuerdo con el alcance del diseño muestral empleado.
+
+\section{Marco Te\'orico}
+
+\par
+Desde la perspectiva de la economía del desarrollo, el comercio de subsistencia se explica mediante el enfoque de exclusión y escape \citep{perry2007}, donde las unidades productivas evalúan los costos de transacción frente a los beneficios de la legalidad. Como demuestran \citet{laporta2014}, en economías duales, la transición hacia la formalidad está condicionada por factores estructurales y de capital humano que dictan la capacidad de absorción de las cargas burocráticas. En Colombia, \citet{fernandez2020} argumenta que las barreras de entrada penalizan a las unidades de comercio minorista, vinculándolas a circuitos de subsistencia salvo que existan anclajes territoriales o patrimoniales que incentiven el registro mercantil.
+
+\par
+Para cuantificar esta dinámica, el estudio emplea el modelado de regresión logística (Logit), idóneo para evaluar variables de respuesta dicotómicas bajo dinámicas no lineales \citep{greene2018}. Como justifica \citet{lopez2020}, los modelos de elección binaria permiten aislar el efecto marginal de atributos sociodemográficos sobre la probabilidad de formalización, facilitando la jerarquización de predictores mediante el uso de \textit{Odds Ratios} (OR) \citep{bruce2022}. Esta elección metodológica permite contrastar la realidad regional con la literatura nacional, donde se debate si factores como la antigüedad operativa son determinantes para el desempeño empresarial \citep{mesa2023}.
+
+\par
+Adicionalmente, el análisis de los perfiles de los empresarios se alineó con estándares contemporáneos. El análisis de reducción dimensional se sustenta en las recomendaciones de \citet{goretzko2021}, quienes sugieren combinar criterios de retención múltiple y varianza explicada para aproximar el proceso generador de datos. La fiabilidad del instrumento se evalúa bajo la crítica de \citet{mcneish2018}, quien advierte sobre las limitaciones del coeficiente Alfa cuando se violan supuestos de tau-equivalencia, sugiriendo que valores elevados en instrumentos bien estructurados son indicadores de una consistencia interna robusta. Finalmente, la visión de la tienda de barrio como un núcleo de confianza y unidad de economía popular \citep{cadavid2024} provee el contexto para interpretar las dimensiones de orientación emprendedora, vinculando la psicometría con los factores de supervivencia identificados en el entorno colombiano \citep{ruiloba2024}.
+
+\needspace{8\baselineskip}
+\section{Metodolog\'ia}
+
+\subsection{Justificaci\'on Metodol\'ogica y Representatividad Muestral}
+El presente estudio utilizó como marco referencial los censos oficiales de la \citet{camara2025} para la actividad CIIU G4711 (Comercio al por menor en establecimientos no especializados). Siguiendo algunos de los principios de diseño de encuestas de \citet{lohr2021}, el contraste entre el universo formal registrado y la muestra efectiva captada en campo permite validar la cobertura regional y evaluar la representatividad territorial de los datos empíricos, incluso bajo un esquema de muestreo no probabilístico condicionado por la accesibilidad territorial.
+
+\begin{table}[H]
+\centering
+\caption{Representatividad Detallada: Universo Institucional (N) vs. Muestra Real (n)}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Municipio} & \textbf{Universo (N)} & \textbf{Muestra (n)} & \textbf{Cobertura (\%)} & \textbf{Margen de Error} \\ \midrule
+L\'erida             & 40                     & 29                   & 72.5\%                     & $\pm$9.1\%               \\
+Mariquita          & 126                    & 18                   & 14.3\%                     & $\pm$21.7\%              \\
+Armero Guayabal    & 44                     & 11                   & 25.0\%                     & $\pm$26.3\%              \\
+Casabianca         & 13                     & 5                    & 38.5\%                     & $\pm$35.0\%              \\
+Honda              & 101                    & 4                    & 4.0\%                      & $\pm$48.0\%              \\
+Ambalema           & 22                     & 1                    & 4.5\%                      & $\pm$96.0\%              \\
+Fal\'an              & 22                     & 1                    & 4.5\%                      & $\pm$96.0\%              \\
+Fresno             & 49                     & 1                    & 2.0\%                      & $\pm$96.0\%              \\
+Venadillo          & 66                     & 1                    & 1.5\%                      & $\pm$96.0\%              \\ \midrule
+\textbf{SUBTOTAL (9 Mun.)} & \textbf{483}   & \textbf{71}          & \textbf{14.7\%}            & \textbf{$\pm$10.5\%}     \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Fuente: Elaboraci\'on propia a partir de registros de la \citet{camara2025}. Nota metodológica: Del total de 108 encuestas originales, 8 registros fueron excluidos por presentar datos incompletos en variables críticas. La base analítica final consta de $n = 100$ sujetos. El remanente de observaciones hasta 100 corresponde a registros sin municipio tipificado.}
+\end{table}
+
+\par
+Dada la alta proporción histórica de economía sumergida que escapa a los censos de Cámara de Comercio, se calculó un tamaño de muestra teórico asumiendo población infinita:
+\begin{equation}
+    n = \frac{Z^{2} \cdot p \cdot q}{e^{2}}
+\end{equation}
+
+Con un nivel de confianza del 95\% y un margen de error del 5\%, el diseño arrojó un objetivo de 384 unidades. La muestra analítica depurada ($n = 100$) sitúa el margen de error global en un 9.8\%, parámetro metodológicamente aceptable para investigaciones inferenciales de corte exploratorio \citep{hernandez2014}.
+
+\par
+Es imperativo destacar que el radio de cobertura geográfica trasciende los centros urbanos principales, logrando una captura descentralizada que refleja la economía periférica del Norte del Tolima. Para evaluar la asociación bivariada, se aplicó la prueba de Chi-cuadrado ($\chi^{2}$) de Pearson. En casos de violación del supuesto mínimo de frecuencias esperadas, se optó por la prueba exacta de Fisher para tablas $2 \times 2$. Para variables sociodemográficas con categorías dispersas, se realizó una reagrupación de niveles que garantiza el cumplimiento de los supuestos estadísticos sin sacrificar interpretabilidad.
+
+\subsection{Ficha T\'ecnica de la Encuesta}
+El instrumento diseñado contempla 12 dimensiones de carácter personal, sociofamiliar y operativo. A continuación se presenta la matriz técnica de variables que sustenta el rigor del estudio:
+
+\begin{table}[H]
+\centering
+\caption{Matriz de Variables y Niveles de Medici\'on}
+\footnotesize
+\begin{tabular}{@{}llll@{}}
+\toprule
+Variable          & Tipo          & Nivel    & Categor\'ias / Rango \\ \midrule
+Edad                       & Cuantitativa           & Raz\'on (Agrupada) & $<$18, 18-25, 26-35... +65   \\
+G\'enero                     & Cualitativa            & Nominal          & Hombre, Mujer               \\
+Estado Civil               & Cualitativa            & Nominal          & Soltero, Casado, U. Libre, Separado, Viudo   \\
+Personas a cargo           & Cuantitativa           & Raz\'on            & 1 a 3, 4 a 6, Ninguna       \\
+Nivel Educativo            & Cualitativa            & Ordinal          & Primaria, Bachiller, Sup./T\'ecnico   \\
+Capacitaci\'on               & Cualitativa            & Nominal          & S\'i ha recibido / No ha recibido \\
+Municipio                  & Cualitativa            & Nominal          & L\'erida, Mariquita, Honda, Otros    \\
+Antig\"uedad Negocio         & Cuantitativa           & Raz\'on (Agrupada) & $<$1 a\~no, 1-5, 6-10, 11-15, 16+ a\~nos \\
+Tenencia del  Local        & Cualitativa            & Nominal          & Propia, Arrendada, Administrada     \\
+Estrato Negocio            & Cualitativa            & Ordinal          & Uno, Dos, Tres, Rural        \\
+Estrato Vivienda           & Cualitativa            & Ordinal          & Uno, Dos, Tres, Rural        \\
+Tipo Vivienda              & Cualitativa            & Nominal          & Propia, Arrendada, Familiar  \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Representatividad y Marco Referencial CIIU G4711}
+El estudio toma como referencia los censos de la Cámara de Comercio de Honda, Guaduas y Norte del Tolima para la actividad G4711 (Comercio al por menor en establecimientos no especializados). El contraste entre el universo registrado y la muestra efectiva permite validar el alcance regional y la profundidad de la captura de datos en municipios con densidades comerciales variadas.
+
+\par
+En Lérida se alcanzó una cobertura del 72.5\% del universo registrado, lo que confiere alta confiabilidad a los hallazgos locales. En Casabianca (38.5\%) y Armero Guayabal (25.0\%) la captura permite identificar tendencias, aunque con cautela interpretativa. Para los municipios con participación reducida (Honda, Fresno, Ambalema), los datos se interpretan exclusivamente como apuntes exploratorios sin pretensión de generalización municipal. El radio de cobertura se sustenta en la presencia de estudiantes con matrícula activa en Uniminuto Lérida residentes en estas áreas, quienes actuaron como agentes de campo territoriales.
+
+\subsection{Fiabilidad del Instrumento}
+La consistencia interna del instrumento se validó mediante el coeficiente Alfa de Cronbach ($\alpha$):
+\begin{equation}
+    \alpha = \left( \frac{K}{K - 1} \right)\left[ 1 - \frac{\sum\sigma_{Y_{i}}^{2}}{\sigma_{X}^{2}} \right]
+\end{equation}
+
+El coeficiente $\alpha = 0.9578$ indica una consistencia interna elevada. Si bien valores superiores a 0.90 se clasifican como sobresalientes \citep{mcneish2018}, en este instrumento la magnitud del coeficiente podría sugerir una posible redundancia conceptual en algunos ítems o una sobrecorrelación entre las dimensiones evaluadas, aspecto que debe considerarse al interpretar la estructura de los datos. Adicionalmente, se validó la adecuación muestral para la reducción dimensional mediante dos pruebas complementarias.
+
+\paragraph{Test de Kaiser-Meyer-Olkin (KMO).}
+El índice KMO \citep{goretzko2021} compara las magnitudes de los coeficientes de correlación observados con los coeficientes de correlación parcial:
+\begin{equation}
+    KMO = \frac{\sum\sum_{i \neq j}^{}r_{ij}^{2}}{\sum\sum_{i \neq j}^{}r_{ij}^{2} + \sum\sum_{i \neq j}^{}a_{ij}^{2}}
+\end{equation}
+donde $r_{ij}$ son las correlaciones simples y $a_{ij}$ las correlaciones parciales entre las variables $i$ y $j$. Valores de $KMO \geq 0.9$ se clasifican como "meritorios" para la factorización \citep{goretzko2021}.
+
+\paragraph{Prueba de esfericidad de Bartlett.}
+Se aplicó la prueba de esfericidad de Bartlett \citep{hair2019} para contrastar la hipótesis nula de que la matriz de correlaciones poblacional es una matriz identidad:
+\begin{equation}
+    \chi_{\text{Bartlett}}^{2} = - \left( n - 1 - \frac{2p + 5}{6} \right)\ln|\mathbf{R}|
+\end{equation}
+donde $n$ es el tamaño muestral, $p$ el número de variables y $|\mathbf{R}|$ el determinante de la matriz de correlaciones. Un $p$-valor $< 0.05$ rechaza $H_{0}$ y valida la pertinencia del análisis factorial \citep{hair2019}. Los resultados obtenidos se presentan a continuación:
+
+\begin{table}[H]
+\centering
+\caption{Adecuaci\'on Muestral para la Reducci\'on Dimensional}
+\begin{tabular}{@{}lc@{}}
+\toprule
+Indicador & Valor \\ \midrule
+KMO (Kaiser-Meyer-Olkin) & 0.9199 \\
+Bartlett $\chi^{2}$ & 1433.87 \\
+Bartlett $p$-valor & $< 0.0001$ \\
+Número de variables Likert & 15 \\
+Método de extracción & Componentes principales \\
+Método de rotación & Varimax \\
+Factores retenidos & 2 \\
+Varianza explicada acumulada & 73.55\% \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{KMO $\geq$ 0.9 se clasifica como "meritorio" para la factorización \citep{goretzko2021}. Bartlett $p < 0.05$ rechaza la hipótesis de matriz identidad.}
+\end{table}
+
+\paragraph{Reducción Dimensional (ACP).}
+Se empleó el método de extracción de Componentes Principales (PCA) para identificar las dimensiones subyacentes a los 15 elementos Likert. Es imperativo precisar que esta técnica se aplicó con un objetivo exploratorio-descriptivo para simplificar la estructura de los datos, y no como un modelado factorial latente puro. El modelo factorial general se expresa como \citep{jolliffe2002}:
+\begin{equation}
+    \mathbf{X} = \mathbf{\Lambda}\mathbf{F} + \mathbf{\epsilon}
+\end{equation}
+donde $\mathbf{X}$ es el vector de variables observadas, $\mathbf{\Lambda}$ la matriz de cargas factoriales, $\mathbf{F}$ el vector de factores latentes y $\mathbf{\epsilon}$ el vector de errores específicos. Los factores se retuvieron según el criterio de Kaiser (eigenvalues $> 1$) y se aplicó rotación Varimax para maximizar la simplicidad de la estructura factorial \citep{hair2019}.
+
+\begin{table}[H]
+\centering
+\caption{Cargas Factoriales Rotadas (Varimax)}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Item Likert & Factor 1 (Expansi\'on) & Factor 2 (Conservador) \\ \midrule
+Oportunidad              & \textbf{0.903}             & 0.164 \\
+Riesgo predisposición    & \textbf{0.916}             & -0.183 \\
+Ideas                    & \textbf{0.886}             & 0.156 \\
+Adaptabilidad            & \textbf{0.846}             & 0.347 \\
+Iniciativa               & \textbf{0.816}             & 0.041 \\
+Motivación               & \textbf{0.816}             & -0.443 \\
+Equipo                   & \textbf{0.774}             & 0.255 \\
+Aprendizaje error          & 0.771               & -0.324 \\
+Riesgo recursos            & 0.760               & 0.523 \\
+Administración             & 0.747               & -0.115 \\
+Auton. tareas              & 0.737               & -0.253 \\
+Autónomo                   & 0.723               & 0.507 \\
+Comunicación               & 0.698               & -0.374 \\
+Debil fortaleza            & 0.657               & -0.318 \\
+Creatividad                & 0.528               & -0.101 \\ \midrule
+Varianza explicada         & 63.53\%              & 10.03\% \\
+Eigenvalue                 & 9.467               & 1.479 \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Cargas $\geq 0.70$ en negritas. Método: Componentes principales con rotación Varimax.}
+\end{table}
+
+\subsection{Estrategia Anal\'itica}
+El análisis de los datos se estructuró en tres fases secuenciales: (1) validación de la fiabilidad del instrumento y adecuación muestral para reducción dimensional (§ 3.4), (2) pruebas de independencia estadística para evaluar asociaciones bivariadas, y (3) estimación de un modelo de regresión logística binaria para identificar predictores multivariados.
+
+\subsubsection{Pruebas de Independencia}
+
+\paragraph{Chi-cuadrado de Pearson.}
+Para evaluar la asociación entre variables categóricas y el estado de formalización, se empleó la prueba $\chi^{2}$ de Pearson \citep{agresti2018}. El estadístico se calcula como:
+\begin{equation}
+    \chi^{2} = \sum_{i = 1}^{r}{\sum_{j = 1}^{c}\frac{(O_{ij} - E_{ij})^{2}}{E_{ij}}}
+\end{equation}
+donde $O_{ij}$ es la frecuencia observada en la celda $(i,j)$, $E_{ij} = \frac{n_{i \cdot} \cdot n_{\cdot j}}{n}$ la frecuencia esperada bajo $H_{0}$ de independencia, y $r$, $c$ el número de filas y columnas. Bajo $H_{0}$, el estadístico sigue una distribución $\chi^{2}$ con $(r - 1)(c - 1)$ grados de libertad. La validez requiere que al menos el 80\% de las celdas presenten $E_{ij} \geq 5$.
+
+\paragraph{Prueba exacta de Fisher.}
+Para tablas $2 \times 2$ donde el supuesto de frecuencias mínimas no se cumple, se aplicó la prueba exacta de Fisher \citep{agresti2018}, que calcula la probabilidad exacta bajo $H_{0}$ sin depender de aproximaciones asintóticas, lo que la hace apropiada para muestras pequeñas.
+
+\subsubsection{Modelo de Regresi\'on Log\'istica}
+La regresión logística binaria \citep{hosmer2013} modeló la probabilidad de formalización ($Y = 1$) en función de $k$ predictores. La estimación de los parámetros $\beta_{k}$ se realizó por máxima verosimilitud. Para cuantificar la magnitud del efecto de cada predictor se calcularon los \textit{Odds Ratios} (OR):
+\begin{equation}
+    OR_{k} = e^{\beta_{k}}
+\end{equation}
+donde $OR > 1$ indica que el predictor incrementa la probabilidad del evento y $OR < 1$ que la reduce. Los intervalos de confianza al 95\% se obtuvieron mediante $e^{\beta_{k} \pm 1.96 \cdot SE(\beta_{k})}$ \citep{bruce2022}.
+
+\paragraph{Supuestos del modelo.}
+Se verificaron: (a) ausencia de multicolinealidad, evaluada mediante el Factor de Inflación de la Varianza:
+\begin{equation}
+    VIF_{k} = \frac{1}{1 - R_{k}^{2}}
+\end{equation}
+donde $R_{k}^{2}$ es el coeficiente de determinación de la regresión auxiliar del predictor $k$ sobre los demás; valores $VIF < 5$ descartan multicolinealidad \citep{hair2019}; y (b) independencia de las observaciones, garantizada por la estrategia transversal del muestreo.
+
+\subsubsection{M\'etricas de Evaluaci\'on del Modelo}
+
+\paragraph{Pseudo-$R^2$ de McFadden.}
+Se calculó el coeficiente de McFadden \citep{greene2018} como medida de ajuste global:
+\begin{equation}
+    R_{\text{McF}}^{2} = 1 - \frac{\ln{\widehat{L}}_{\text{completo}}}{\ln{\widehat{L}}_{\text{nulo}}}
+\end{equation}
+ donde ${\widehat{L}}_{\text{completo}}$ y ${\widehat{L}}_{\text{nulo}}$ son las verosimilitudes del modelo estimado y del modelo solo con intercepto. Valores entre 0.20 y 0.40 se consideran excelentes en modelos discretos \citep{greene2018}.
+
+\paragraph{Criterios de informaci\'on.}
+Se reportan el criterio de Akaike (AIC) y el criterio de información bayesiana (BIC):
+\begin{equation}
+    AIC = - 2\ln\widehat{L} + 2k\quad\quad;\quad\quad BIC = - 2\ln\widehat{L} + k\ln(n)
+\end{equation}
+donde $k$ es el número de parámetros y $n$ el tamaño muestral. Menores valores indican mejor ajuste penalizado por complejidad \citep{burnham2002}.
+
+\paragraph{Capacidad discriminativa (AUC-ROC).}
+La capacidad del modelo para distinguir entre tenderos formalizados y no formalizados se evaluó mediante el Área Bajo la Curva ROC. Un $AUC > 0.80$ indica adecuada capacidad discriminativa \citep{hosmer2013}.
+
+\newpage
+\section{Resultados}
+
+\subsection{Perfil Sociodemogr\'afico}
+Los resultados porcentuales por municipio revelan patrones de liderazgo y formación diferenciados que definen el perfil del tendero en el Norte del Tolima. Mientras que en algunos nodos la formación técnica es la norma, en otros predomina una base educativa media vinculada a la experiencia empírica.
+
+\subsubsection{Liderazgo y G\'enero por Municipio}
+A continuación se presenta el desglose individual por municipio, evidenciando la alta participación de la mujer en el sector microempresarial rural y urbano. La prueba de independencia $\chi^{2}$ (agrupando los municipios en cuatro nodos principales para robustez estadística: Lérida, Mariquita, Armero Guayabal y Otros) no encontró una asociación estadísticamente significativa entre el municipio y el género de los administradores ($\chi^{2} = 2.34$, $p = 0.505$) (Es importante notar que el 25.0\% de las celdas en la tabla de contingencia presentó frecuencias esperadas menores a 5, lo que sugiere una interpretación cautelosa de la no significancia estadística de esta prueba). Esto sugiere que el liderazgo femenino fue transversal a todos los nodos estudiados.
+
+\begin{table}[H]
+\centering
+\caption{Distribución de Género Desglosada por Municipio}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Municipio         & Mujer   & Hombre  & Total (n) & \% Mujer \\ \midrule
+Lérida             & 22       & 7        & 29      & 75.9\% \\
+Mariquita          & 16       & 2        & 18      & 88.9\% \\
+Armero Guayabal     & 9       & 2        & 11      & 81.8\% \\
+Otros (H/C/V/F)*              & 30       & 12       & 42      & 71.4\% \\ \midrule
+TOTAL              & 77       & 23     & 100**   & 77.0\% \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{* Incluye Honda (n=4), Casabianca (n=5), Venadillo (n=1), Ambalema (n=1), Falán (n=1) y otros núcleos periféricos. La granularidad de la muestra en estos municipios impide la extracción de conclusiones individuales robustas. ** Sobre registros con dato completo.}
+\end{table}
+
+\subsubsection{Perfil Demogr\'afico: Edad y Estado Civil}
+La caracterizaci\'on etaria y la situaci\'on conyugal permiten identificar el perfil de los participantes y el grado de arraigo en el sector. A nivel regional, se observó una participación destacada de adultos en edad intermedia (36 a 65 años) y una prevalencia de estados civiles como Unión Libre y Soltería.
+
+\begin{table}[H]
+\centering
+\caption{Distribución por Grupos de Edad (\%)}
+\small
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+Municipio        & $<$ 18 & 18 - 25 & 26 - 35 & 36 - 45 & 46 - 55 & 56 - 65 & +65 \\ \midrule
+Lérida            & 4.5\%   & 0.0\%    & 9.1\%    & 22.7\%   & 18.2\%   & 31.8\%   & 13.6\% \\
+Mariquita         & 0.0\%   & 0.0\%    & 10.0\%   & 30.0\%   & 20.0\%   & 30.0\%   & 10.0\% \\
+Armero Guayabal   & 0.0\%   & 50.0\%   & 25.0\%   & 0.0\%    & 0.0\%    & 25.0\%   & 0.0\% \\
+Otros             & 0.0\%   & 15.6\%   & 21.9\%   & 14.1\%   & 17.2\%   & 18.8\%   & 12.5\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Estado Civil (\%)}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Municipio         & Casado   & Separado   & Soltero  & Unión Libre  & Viudo \\ \midrule
+Lérida             & 4.5\%      & 0.0\%      & 45.5\%      & 50.0\%     & 0.0\% \\
+Mariquita          & 0.0\%     & 10.0\%      & 0.0\%       & 70.0\%     & 20.0\% \\
+Armero Guayabal    & 0.0\%      & 0.0\%      & 75.0\%      & 25.0\%     & 0.0\% \\
+Otros             & 15.6\%      & 3.1\%      & 34.4\%      & 42.2\%     & 4.7\% \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Nota: El bajo volumen de respuestas en algunas categorías restringe la potencia de las pruebas $\chi^{2}$. Los resultados se interpretan descriptivamente para el grupo encuestado.}
+\end{table}
+
+\subsubsection{Nivel de Formaci\'on}
+Los datos indican que en Lérida, el 36.4\% de la muestra inicial indicó contar únicamente con primaria o educación básica, lo que puede suponer una primera brecha en la adopción rápida de tecnologías digitales y contables. Por el contrario, en municipios como Mariquita y Armero Guayabal, se evidencia una fuerte base de bachilleres (50.0\% y 75.0\% respectivamente), y un indicador de educación superior o técnica en Mariquita (40.0\%).
+
+\begin{table}[H]
+\centering
+\caption{Nivel Educativo Consolidado (\%)}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Municipio         & Bachiller   & Primaria/Ning.   & Sup./Técnico \\ \midrule
+Lérida              & 45.5\%         & 36.4\%           & 18.2\% \\
+Mariquita           & 50.0\%         & 10.0\%           & 40.0\% \\
+Armero Guayabal     & 75.0\%          & 0.0\%           & 25.0\% \\
+Otros               & 42.2\%         & 35.9\%           & 21.9\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Perfil y Operaci\'on del Negocio}
+La operatividad e infraestructura de las unidades económicas se evidencia a través de su tiempo de supervivencia en el mercado y la seguridad jurídica sobre el espacio físico que ocupan. A continuación se desglosan de forma independiente estos dos marcadores clave.
+
+\subsubsection{Madurez Operativa y Antig\"uedad}
+En Lérida y Armero Guayabal prevalecieron los negocios con $\geq 5$ años de antigüedad (55.2\% y 54.5\% respectivamente), mientras que en Mariquita predominaron emprendimientos más recientes ($< 5$ años, 66.7\%). Las pruebas de independencia $\chi^{2}$ para la antigüedad del negocio, no revelaron diferencias estadísticamente significativas a nivel global entre los municipios agrupados ($\chi^{2} = 2.74$, $p = 0.433$). Esto sugirió una tasa de sobrevivencia del negocio que, a nivel inferencial, no difirió significativamente entre los nodos principales estudiados.
+
+\begin{table}[H]
+\centering
+\caption{Antigüedad del Negocio (\%)}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Municipio          & $<$ 5 años      & $\geq$ 5 años \\ \midrule
+Lérida             & 44.8\%     & 55.2\% \\
+Mariquita          & 66.7\%     & 33.3\% \\
+Armero Guayabal    & 45.5\%     & 54.5\% \\
+Otros              & 45.2\%     & 54.8\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Tenencia del Local Comercial}
+La longevidad operativa presenta una leve asociación descriptiva con la tenencia del local. En Mariquita, el 100\% de los tenderos encuestados reporta operar en local propio, mientras que otros nodos presentan márgenes de arrendamiento cercanos al 10-12\% (Lérida 10.3\%, Otros 11.9\%). La prueba de independencia $\chi^{2}$ ($\chi^{2} = 13.24$, $p = 0.352$) no resulta significativa; no obstante, dado que el 75\% de las celdas presenta frecuencias esperadas inferiores a 5, el resultado debe interpretarse con cautela.
+
+\begin{table}[H]
+\centering
+\caption{Tenencia Inmobiliaria del Local (\%)}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Municipio         & Propio   & Arrendado   & Admin.   & Otro/Prefiere no decir \\ \midrule
+Lérida            & 79.3\%      & 10.3\%      & 6.9\%          & 3.4\% \\
+Mariquita         & 100.0\%     & 0.0\%       & 0.0\%          & 0.0\% \\
+Armero Guayabal   & 81.8\%      & 9.1\%       & 0.0\%          & 9.1\% \\
+Otros             & 83.3\%      & 11.9\%      & 0.0\%          & 4.8\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Entorno Habitacional}
+El hábitat constituye el entorno determinante que condiciona la exposición del tendero a factores de riesgo económico. La vivienda propia no solo es un activo familiar, sino que actúa como el principal colateral informal para la subsistencia del micronegocio.
+
+\subsubsection{Prevalencia de Vivienda Propia y Estrato Socioecon\'omico}
+Se observó una alta prevalencia de vivienda propia entre los consultados, un factor que mitigó el riesgo de insolvencia extrema pero que también ancló al tendero a su ubicación geográfica. En el subgrupo encuestado, Lérida presentó un 62.1\% de propiedad residencial, mientras que en Mariquita el 66.7\% habitó en vivienda propia. Esta estabilidad residencial constituyó un indicador de la baja rotación del sector. La prueba de independencia $\chi^{2}$ con municipios agrupados arrojó $\chi^{2} = 4.75$ y $p = 0.577$, sin significancia estadística. Dado el alto porcentaje de celdas con frecuencias esperadas inferiores a 5, los resultados se interpretan descriptivamente, restringiendo las conclusiones al grupo encuestado.
+
+\begin{table}[H]
+\centering
+\caption{Determinantes de Hábitat: Tenencia de Vivienda (\%)}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Municipio        & Propia (\%) & Arrendada (\%)  & Familiar (\%) \\ \midrule
+Lérida             & 62.1\%        & 31.0\%        & 6.9\% \\
+Mariquita          & 66.7\%        & 22.2\%        & 11.1\% \\
+Armero Guayabal    & 81.8\%        & 18.2\%        & 0.0\% \\
+Otros              & 52.4\%        & 40.5\%        & 7.1\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Estratificaci\'on de la Vivienda y Negocio}
+Se observó una sólida concentración poblacional en los estratos 1 y 2. En Lérida, la vivienda de estrato 2 (90.9\%) consolida una base residencial base, pero estable. Como contraste, Mariquita destaca por situar la mayoría de su actividad comercial encuestada en estrato 1 (90.0\%), evidenciando que la informalidad y la microempresa de barrio dan respuesta de subsistencia directa en las zonas más requeridas.
+
+\begin{table}[H]
+\centering
+\caption{Estratificación del Local Comercial (\%)}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Municipio          & Uno     & Dos    & Tres   & Rural    & Prefiere no decir \\ \midrule
+Lérida            & 13.6\%   & 59.1\%   & 0.0\%   & 0.0\%        & 27.3\% \\
+Mariquita         & 90.0\%   & 0.0\%    & 0.0\%   & 10.0\%       & 0.0\% \\
+Armero Guayabal   & 50.0\%   & 25.0\%   & 0.0\%   & 0.0\%        & 25.0\% \\
+Otros             & 54.7\%   & 34.4\%   & 9.4\%   & 0.0\%        & 1.6\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\par
+Sin embargo, teniendo en cuenta que el valor $p$ de asociación arrojó casi cero en algunos estratos ($p = 0.0$), es necesario recordar que el porcentaje de celdas atípicas (frecuencias menores a 5) fue significativamente alto, y por lo tanto, esto debe considerarse como una exploración del grupo encuestado.
+
+\subsection{Densidad Sociofamiliar}
+La dependencia familiar constituye un factor relevante en la dinámica operativa de la tienda de barrio. En este análisis, el número de personas a cargo se considera un indicador del nivel de compromiso financiero necesario para el sostenimiento del hogar, lo que podría influir en la continuidad del negocio bajo diversos niveles de rentabilidad.
+
+\subsubsection{Vulnerabilidad por Carga de Dependencia}
+En Lérida, el 65.5\% de los encuestados sostuvo entre 1 y 3 personas adicionales, cifra que ascendió al 73.8\% en los municipios periféricos. Con respecto a Armero Guayabal presentó un 63.6\% de tenderos sin personas a cargo. La prueba de independencia $\chi^{2}$ para la carga de dependencia según municipio arrojó $\chi^{2} = 8.01$, $p = 0.238$, sin significancia estadística. No obstante, la baja frecuencia esperada en varias celdas limitó la potencia de la prueba.
+
+\begin{table}[H]
+\centering
+\caption{Distribución de la Carga de Dependencia (\%)}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Municipio        & Ninguna (\%)  & 1 a 3 pers. (\%) & 4 a 6 pers. (\%) \\ \midrule
+Lérida              & 27.6\%        & 65.5\%         & 6.9\% \\
+Mariquita           & 33.3\%        & 61.1\%         & 5.6\% \\
+Armero Guayabal     & 63.6\%        & 36.4\%         & 0.0\% \\
+Otros               & 21.4\%        & 73.8\%         & 4.8\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Implicaciones en la Estabilidad del Hogar}
+La presencia de dependientes de 4 a 6 personas en el 5.6\% de los casos de Mariquita, junto con el 6.9\% de Lérida, identifica segmentos con mayor presión socioeconómica. Desde la perspectiva analítica, estos casos podrían presentar una menor resiliencia operativa ante choques externos, donde la informalidad constituye una alternativa de generación de ingresos ante la vulnerabilidad del núcleo familiar.
+
+\subsection{Integraci\'on de Resultados Descriptivos e Inferenciales}
+
+En esta sección se consolidan los patrones identificados en la investigación, mediante el cruce de los resultados descriptivos (Fase 1) y los hallazgos inferenciales (Fase 2). La matriz asocia la observación cualitativa con su respectiva evidencia estadística exhaustiva.
+
+\subsubsection{Descripci\'on de Patrones Cr\'iticos}
+
+\begin{enumerate}
+    \item \textbf{Trayectoria del Negocio:} Al observar la tabla de \textit{Antigüedad vs Formalización}, se identifica que los negocios en sus primeros 5 años (Tiendas Emergentes) presentan una probabilidad de formalización un 89\% menor comparados con los consolidados. Esto sugiere que el registro mercantil es una práctica que se incrementa con la madurez operativa.
+
+    \item \textbf{La Dinámica Territorial en el Eje Mariquita-Lérida:} A pesar de su relevancia comercial, el eje compuesto por Mariquita y Lérida presenta dinámicas de formalización menores que los municipios periféricos captados en la muestra. La ubicación en los municipios colindantes se asocia con una mayor probabilidad de registro legal, lo que sugiere una distribución diferenciada de la presencia o una estrategia institucional focalizada fuera de los nodos urbanos principales.
+
+    \item \textbf{La Participación Femenina en el Sector:} La observación del Género muestra que el sector analizado está integrado mayoritariamente por mujeres (77\%), quienes presentan una tasa de formalización 14 puntos superior a la de los hombres en la muestra recolectada.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_barras_formalizacion.pdf}
+    \caption{Tasa de Formalización Comercial por Predictores Clave}
+    \label{fig:barras_formalizacion}
+\end{figure}
+
+\subsubsection{Perfiles Psicom\'etricos e Interacci\'on Territorial}
+
+A partir de las cargas factoriales validadas en la metodología, se consolidaron dos perfiles latentes de orientación emprendedora que describen la heterogeneidad actitudinal del sector tendero:
+
+\begin{enumerate}
+    \item \textbf{Perfil Expansión (Factor 1):} Es la dimensión dominante (63.5\% de varianza explicada). Agrupa capacidades de detección de oportunidades, generación de ideas, adaptabilidad y predisposición al riesgo. Los tenderos con este perfil muestran una mentalidad marcadamente orientada al crecimiento comercial.
+    \item \textbf{Perfil Conservador (Factor 2):} Agrupa la necesidad de autonomía, el anclaje comunitario y la aversión al riesgo de recursos. Denota una fuerte inteligencia social local pero con estrategias de supervivencia más prudentes orientadas a mantener el estatus operativo.
+\end{enumerate}
+
+\par
+Al desagregar la distribución de estos perfiles en la muestra, se observa una variabilidad territorial descriptiva. Mariquita presenta una mayor concentración del perfil \textbf{Conservador} (70.6\%), mientras que en el nodo de municipios colindantes (Otros) se identifica una mayor frecuencia del perfil de \textbf{Expansión} (67.4\%). Estas diferencias sugieren que la orientación actitudinal podría estar influenciada por las condiciones del entorno local de cada municipio.
+
+\begin{table}[H]
+\centering
+\caption{Distribución de Perfiles Psicométricos por Municipio}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Municipio} & \textbf{Conservador} & \textbf{Expansi\'on} & \textbf{Total (n)} \\ \midrule
+Armero Guayabal & 63.6\% & 36.4\% & 11 \\
+Lérida & 58.6\% & 41.4\% & 29 \\
+Mariquita & \textbf{70.6\%} & 29.4\% & 17 \\
+Otros & 32.6\% & \textbf{67.4\%} & 43 \\ \midrule
+\textbf{Total Muestra} & \textbf{50.0\%} & \textbf{50.0\%} & \textbf{100} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\par
+Sin embargo, al cruzar el perfil psicológico con el cumplimiento normativo, la Tabla \ref{tab:interaccion_tripartita} presenta una matriz de interacción tripartita que cuantifica esta dinámica.
+
+\begin{table}[H]
+\centering
+\caption{Matriz de Interacci\'on: Municipio, Perfil Psicom\'etrico y Formalizaci\'on}
+\label{tab:interaccion_tripartita}
+\small
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{Municipio} & \textbf{Perfil Latente} & \textbf{Informal (n)} & \textbf{Formal (n)} & \textbf{Total} & \textbf{\% Formal} \\ \midrule
+\multirow{2}{*}{Armero Guayabal} & Conservador & 4 & 3 & 7 & 42.9\% \\
+ & Expansi\'on & 1 & 3 & 4 & \textbf{75.0\%} \\ \midrule
+\multirow{2}{*}{L\'erida} & Conservador & 12 & 5 & 17 & 29.4\% \\
+ & Expansi\'on & 9 & 3 & 12 & 25.0\% \\ \midrule
+\multirow{2}{*}{Mariquita} & Conservador & 11 & 1 & 12 & 8.3\% \\
+ & Expansi\'on & 5 & 0 & 5 & \textbf{0.0\%} \\ \midrule
+\multirow{2}{*}{Otros} & Conservador & 7 & 7 & 14 & 50.0\% \\
+ & Expansi\'on & 14 & 15 & 29 & 51.7\% \\ \midrule
+\textbf{Total General} & -- & \textbf{63} & \textbf{37} & \textbf{100} & \textbf{37.0\%} \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Nota: La tabla evidencia la heterogeneidad del impacto del perfil actitudinal según la barrera del contexto municipal.}
+\end{table}
+
+\par
+Mientras que en Lérida y Mariquita, el perfil de \textit{Conservador -- Informal} resalta sobre los demás indicadores según su cuadrante, con respecto a Otros municipios colindantes el perfil tiende a la \textit{Expansión}, si bien la formalización no resalta. Así mismo, se evidencia la necesidad de realizar un estudio de mayor alcance para obtener una mejor resolución de los resultados. No obstante, como parte de la estrategia para obtener un panorama del contexto, se consideró el uso de un modelo multivariado (Logit) para cuantificar el peso definitivo de las variables predictoras en función de la formalización.
+
+\subsubsection{Modelo Log\'istico}
+La siguiente tabla presenta la especificación completa del modelo, incluyendo los coeficientes en escala log-odds ($\beta$), errores estándar, estadístico $z$ de Wald, y los Odds Ratios con sus intervalos de confianza.
+
+\begin{equation}
+\log\left( \frac{P(\text{Formal})}{1 - P(\text{Formal})} \right) = \beta_{0} + \beta_{1}X_{\text{Emergente}} + \beta_{2}X_{\text{Arrendada}} + \beta_{3}X_{\text{Municipios colindantes}}
+\end{equation}
+
+\begin{table}[H]
+\centering
+\caption{Modelo Logístico Completo: Coeficientes, Odds Ratios e IC 95\%}
+\small
+\begin{tabular}{@{}lccccccl@{}}
+\toprule
+Variable & $\beta$ & SE & $z$ & p-valor & OR & IC 95\% & Sig. \\ \midrule
+Intercepto & -1.1074 & 0.4598 & -2.408 & 0.0160 & 0.3304 & [0.13, 0.81] & * \\
+Emergente ($\le$5 años) & -2.1853 & 0.5675 & -3.851 & 0.0001 & 0.1124 & [0.04, 0.34] & *** \\
+Arrendada & +1.5358 & 0.5688 & +2.700 & 0.0069 & 4.6449 & [1.52, 14.16] & ** \\
+Municipios colindantes & +1.6687 & 0.5310 & +3.143 & 0.0017 & 5.3053 & [1.87, 15.02] & ** \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{$\beta$ = coeficiente log-odds; SE = error estándar; $z$ = estadístico de Wald; OR = Odds Ratio ($e^{\beta}$). Significancia: *** $p < 0.001$, ** $p < 0.01$, * $p < 0.05$, n.s. ($p > 0.05$).}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.68\textwidth]{fig_forest_plot_OR.pdf}
+    \caption{Forest Plot de Odds Ratios y Efectos Predictivos (IC 95\%)}
+    \label{fig:forest_plot}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Bondad de Ajuste del Modelo Logístico}
+\begin{tabular}{@{}lc@{}}
+\toprule
+Métrica & Valor \\ \midrule
+Log-Likelihood & -48.54 \\
+Log-Likelihood (nulo) & -65.90 \\
+Pseudo-$R^{2}$ (McFadden) & 0.2634 \\
+AIC & 105.08 \\
+BIC & 115.50 \\
+Accuracy & 79.0\% \\
+Sensibilidad & 67.6\% \\
+Especificidad & 85.7\% \\
+AUC (ROC) & 0.8157 \\ \midrule
+\multicolumn{2}{@{}l@{}}{Matriz de confusi\'on: TN=54, FP=9, FN=12, TP=25} \\
+\multicolumn{2}{@{}l@{}}{VIF: bin\_novato=1.01, bin\_arrendada=1.02, bin\_periferia=1.01} \\ \bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize{Pseudo-$R^{2}$ de McFadden entre 0.20 y 0.40 indica un ajuste excelente \citep{greene2018}. AUC $> 0.80$ indica buena capacidad discriminativa. VIF $< 5$ descarta multicolinealidad.}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.56\textwidth]{fig_curva_ROC.pdf}
+    \caption{Curva ROC y Capacidad Discriminativa del Modelo Logístico}
+    \label{fig:curva_roc}
+\end{figure}
+
+\section{Discusión}
+
+\par
+El instrumento de medición registró un coeficiente de fiabilidad ($\alpha = 0.9578$), y el análisis de reducción dimensional identificó dos dimensiones de orientación emprendedora ---Expansión (63.53\%) y Conservador (10.03\%)--- que caracterizan la variabilidad actitudinal en la muestra. Estas dimensiones son consistentes con hallazgos previos sobre la tienda de barrio como una unidad de economía popular \citep{cadavid2024}, donde los perfiles identificados sugieren estrategias diferenciadas de adaptación al entorno comercial.
+
+\par
+Los resultados del modelo logístico permiten contrastar los hallazgos regionales con la literatura nacional e internacional. En primer lugar, la madurez operativa del negocio constituye el predictor más robusto: los establecimientos con menos de cinco años de antigüedad presentan una probabilidad de registro formal un 89\% inferior a la de sus pares consolidados ($OR = 0.11$; $p = 0.0001$). Este hallazgo es consistente con la literatura sobre trayectoria empresarial en contextos de informalidad \citep{ruiloba2024}, aunque contrasta con \citet{mesa2023}, quien no registró significancia de la antigüedad a nivel nacional, lo que sugiere que la dinámica de la formalización presenta variaciones en economías regionales periféricas.
+
+\par
+En segundo lugar, la tenencia del local en modalidad de arriendo se asocia con un incremento de 4.6 veces en la probabilidad de formalización ($OR = 4.64$; $p = 0.0069$). Este resultado puede interpretarse como un efecto de la formalidad contractual del arrendamiento, que impone al tendero una lógica administrativa más cercana a la formalización comercial. Desde la perspectiva de \citet{fernandez2020}, este hallazgo refuerza la hipótesis de que los costos de transacción institucionales moldean las decisiones de los microempresarios.
+
+\par
+Finalmente, el factor territorial revela que los Municipios colindantes presentan tasas de formalización 5.3 veces superiores al Eje Mariquita-Lérida ($OR = 5.31$; $p = 0.0016$). Este hallazgo sugiere que los municipios mencionados presentan una mayor probabilidad de formalización que debe ser explorada y verificada con estudios ajustados a sus contextos.
+
+\newpage
+\section{Conclusiones}
+
+\par
+Se han consolidado hallazgos a nivel descriptivo, bivariado y multivariado, que caracterizan las dinámicas de formalización del sector tendero en el Norte del Tolima. A partir de los determinantes estructurales evaluados mediante el modelo logístico, se identificaron tres predictores significativos de la formalización: la madurez operativa, donde los negocios emergentes (con menos de 5 años) son un 89\% menos propensos a formalizarse ($OR = 0.11$; $p = 0.0001$); la modalidad de arriendo, que incrementa en 4.6 veces la probabilidad de formalización ($OR = 4.64$; $p = 0.0069$); y el factor territorial, en el cual los municipios colindantes superan en formalidad a los nodos principales ($OR = 5.31$; $p = 0.0016$).
+
+\par
+El análisis bivariado complementario confirmó el impacto de la antigüedad del negocio ($p = 0.0013$) y la ubicación municipal ($p = 0.0040$) sobre el cumplimiento legal. Adicionalmente, reveló que residir en vivienda en arriendo ($p = 0.0145$) y pertenecer al rango de edad de 26 a 35 años ($p = 0.0338$) se asocian con mayores proporciones de registro mercantil. Por el contrario, factores socioeconómicos como el nivel educativo ($p = 0.4550$), el estado civil ($p = 0.7178$), el estrato socioeconómico ($p > 0.05$) y el volumen de ventas ($p > 0.05$) no mostraron asociación estadística directa con la decisión de formalización. Esto demuestra que el cumplimiento normativo en esta muestra trasciende los niveles de ingreso o formación académica básica.
+
+\par
+En términos del perfil sociodemográfico y descriptivo, el sector evidenció una marcada feminización (con un 77\% de participación de mujeres, aunque sin asociación significativa con la formalidad, $p = 0.3225$), un predominio de educación básica (75\%) y una fuerte orientación de las tiendas como unidades de sostenimiento familiar (el 65\% tiene entre 1 y 3 personas a cargo).
+
+\par
+Finalmente, respecto a la consistencia psicométrica y actitudinal, el instrumento de recolección de datos demostró una alta fiabilidad ($\alpha = 0.9578$). Asimismo, el análisis de reducción dimensional (ACP) logró extraer dos dimensiones que explican la orientación emprendedora del sector: una dimensión orientada a la Expansión (63.53\%) y una dimensión Conservadora (10.03\%).
+
+\section{Limitaciones del Estudio}
+\begin{enumerate}
+    \item Tamaño muestral: La muestra analítica ($n = 100$) implica un margen de error del 9.8\%, lo que limita la generalización a nivel municipal para nodos con baja participación ($n < 10$).
+    \item Diseño transversal: La naturaleza transversal del estudio no permite establecer relaciones de causalidad temporal entre la antigüedad del negocio y la decisión de formalización.
+    \item Muestreo por conveniencia: La selección no probabilística mediante estudiantes de Uniminuto introduce un sesgo de accesibilidad geográfica que puede subestimar la participación de tenderos en zonas sin cobertura universitaria.
+    \item Frecuencias esperadas: En 5 de las 12 variables evaluadas, las tablas de contingencia presentan más del 20\% de celdas con frecuencia esperada inferior a 5, lo que limita la potencia de las pruebas de independencia y requiere interpretación cautelosa.
+\end{enumerate}
+
+\newpage
+\nocite{*}
+\bibliographystyle{apalike}
+\bibliography{referencias}
+
+\newpage
+% ======================================================================
+% APÉNDICE: TABLAS EXHAUSTIVAS DE CONTINGENCIA
+% ======================================================================
+\appendix
+\section{Apéndice: Tablas de Contingencia}
+
+Las siguientes tablas presentan el desglose completo de las pruebas de independencia $\chi^{2}$ y Fisher realizadas sobre la muestra analítica ($n = 100$). Se organizan en dos bloques: (A)  variables vs. municipio, y (B) variables vs. estado de formalización.
+
+\subsection{Análisis de Caracterización Territorial (Variables vs. Municipio)}
+En este bloque se presentan las tablas de contingencia que describen el perfil de los tenderos y sus negocios según su ubicación municipal.
+
+\subsubsection{Dimensión 1: Perfil Sociodemográfico del Tendero}
+\input{tablas_exhaustivas/tabla_genero_vs_municipio}
+\input{tablas_exhaustivas/tabla_edad_vs_municipio}
+\input{tablas_exhaustivas/tabla_educacion_vs_municipio}
+\input{tablas_exhaustivas/tabla_estado_civil_vs_municipio}
+\input{tablas_exhaustivas/tabla_personas_cargo_vs_municipio}
+\par
+El perfil sociodemográfico de los tenderos en la región muestra una alta participación femenina (77.0\%) y una estructura etaria donde el 52.0\% supera los 46 años. No obstante, se identifica un segmento joven en municipios como Armero Guayabal. En términos de capital humano, predomina la formación básica, aunque existe una proporción de formación técnica (19.0\%) con mayor presencia en Mariquita. Las estructuras familiares reflejan modelos de negocio orientados al sostenimiento del núcleo familiar.
+
+\subsubsection{Dimensión 2: Vivienda y Entorno Social}
+\input{tablas_exhaustivas/tabla_estrato_vivienda_vs_municipio}
+\input{tablas_exhaustivas/tabla_tipo_vivienda_vs_municipio}
+\par
+La caracterización habitacional indica que el sector se ubica mayoritariamente en estratos socioeconómicos uno y dos (85.0\%). La propiedad de la vivienda constituye un factor de estabilidad patrimonial en municipios como Lérida, reduciendo los costos fijos y favoreciendo la permanencia del negocio. Esta condición permite la coexistencia del espacio residencial y comercial bajo esquemas de economía de proximidad.
+
+\subsubsection{Dimensión 3: Estructura y Desempeño del Negocio}
+\input{tablas_exhaustivas/tabla_negocio_antiguedad_vs_municipio}
+\input{tablas_exhaustivas/tabla_negocio_tenencia_vs_municipio}
+\input{tablas_exhaustivas/tabla_negocio_estrato_vs_municipio}
+\input{tablas_exhaustivas/tabla_ingresos_mens_vs_municipio}
+\par
+La estructura operativa del negocio se caracteriza por la consolidación de negocios con trayectoria (49\% entre 1 y 5 años). El predominio de locales propios y la ubicación en estratos comerciales bajos refleja un modelo de negocio de proximidad. En términos financieros, el sector opera con volúmenes de transacción limitados, donde ventas e ingresos brutos mayoritariamente no superan los dos salarios mínimos mensuales. Esta situación indica una economía de supervivencia con márgenes reducidos, sujeta a la liquidez del entorno local.
+\par
+\subsection{Análisis de Contingencia (Variables vs. Formalización)}
+En esta sección se presentan las tablas de contingencia exhaustivas que sustentan el análisis bivariado del estudio. Los resultados se han agrupado en tres dimensiones críticas para facilitar la interpretación de los determinantes de la formalización.
+
+\subsubsection{Dimensión 1: Factores Sociodemográficos y Familiares}
+\input{tablas_exhaustivas/tabla_genero_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_edad_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_educacion_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_estado_civil_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_personas_cargo_vs_formalizacion}
+\par
+El análisis de la dimensión sociodemográfica indica que, aunque no existe una asociación estadística significativa en la mayoría de estas variables, se observan tendencias descriptivas. La mayor formalización entre mujeres y en el rango de 26 a 35 años sugiere una mayor disposición al cumplimiento normativo en estos grupos. Por otro lado, la homogeneidad según educación y estado civil indica que el registro mercantil se asocia más a la estabilidad de la unidad productiva que a los atributos individuales del propietario. Asimismo, la carga familiar no limita la formalización, lo que sugiere una integración de las responsabilidades domésticas con la actividad comercial.
+
+\subsubsection{Dimensión 2: Factores de Ubicación y Vivienda}
+\input{tablas_exhaustivas/tabla_mun_grupo_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_estrato_vivienda_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_tipo_vivienda_vs_formalizacion}
+\par
+Las condiciones territoriales y habitacionales muestran una influencia diferenciada. Mientras que la formalización es transversal a los estratos residenciales, la ubicación municipal y el tipo de vivienda presentan asociaciones relevantes. La mayor tasa de registro mercantil en municipios de la periferia sugiere dinámicas de gestión institucional focalizada. Por otro lado, la prevalencia de formalización en viviendas arrendadas destaca como un hallazgo relevante, posiblemente asociado a exigencias contractuales y la necesidad de legitimidad ante terceros, en contraste con la flexibilidad operativa observada en vivienda propia.
+
+\subsubsection{Dimensión 3: Factores Estructurales y Financieros del Negocio}
+\input{tablas_exhaustivas/tabla_negocio_antiguedad_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_negocio_tenencia_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_negocio_estrato_vs_formalizacion}
+\input{tablas_exhaustivas/tabla_negocio_ventas_mes_vs_formalizacion}
+\par
+Esta dimensión integra los predictores con mayor significancia. La antigüedad operativa del negocio se identifica como el factor principal de la formalización ($p < 0.01$), indicando que la legalidad se asocia al proceso de consolidación comercial. La similitud en las tasas de formalización según tenencia del local y estrato comercial indica que la decisión de registro responde primordialmente a la trayectoria del micronegocio.
+\end{document}

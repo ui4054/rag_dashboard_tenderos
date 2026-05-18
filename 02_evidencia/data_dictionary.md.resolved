@@ -1,0 +1,51 @@
+# Diccionario de Datos: Estudio de Tenderos
+
+Este diccionario clasifica las variables recolectadas en el instrumento (Microsoft Forms) para estructurar el posterior procesamiento y la aplicación de análisis estadísticos.
+
+## 1. Identificadores y Control (Datos Sensibles / PII)
+*Variables que deben ser excluidas o anonimizadas antes del análisis.*
+- `Id`: Identificador único de la respuesta.
+- `Nombre del Tendero`: Texto (PII).
+- `Dirección del Negocio Exacta`: Texto (PII).
+- `Teléfono, correo electrónico o Whatsapp`: Texto numérico/alfanumérico (PII).
+- `Seleccione el Nombre del Encuestador`: Categórica nominal.
+- `Nombre de la Tienda o Negocio`: Texto (PII moderado).
+
+## 2. Variables Sociodemográficas (Del Propietario)
+*Permiten perfilar al emprendedor.*
+- `¿Cuántos años tienes?`: Categórica Ordinal (Rangos de edad).
+- `Estado Civil`: Categórica Nominal.
+- `¿Cuál es tu género?`: Categórica Nominal.
+- `´¿Cuál es el número de personas a cargo?`: Categórica Ordinal (Rangos numéricos).
+- `¿Cuál es el nivel de educación más alto que ha completado?`: Categórica Ordinal (Nivel educativo).
+- `¿Estrato económico de vivienda?`: Categórica Ordinal.
+- `¿Cuál es tu tipo de vivienda?`: Categórica Nominal.
+- `¿Cuál es el promedio de ingresos mensuales?`: Categórica Ordinal (Rangos salariales).
+
+## 3. Variables Comerciales (Del Negocio)
+*Perfilan el nivel y formalización de la unidad productiva.*
+- `Ubicación del Negocio (Municipio y Barrio o Vereda solamente)`: Categórica Nominal (Requiere limpieza/estandarización).
+- `Antigüedad de la Tienda o Negocio`: Categórica Ordinal (Rangos de años).
+- `Estrato Socioeconómico de la Tienda`: Categórica Ordinal.
+- `¿La tenencia de la tienda es?`: Categórica Nominal (Propia, Arrendada, etc).
+- `¿La tienda o negocio cuenta con registro en Cámara de Comercio?`: Categórica Nominal Binaria (Sí, No, Prefiero no decir).
+- `Aproximadamente ¿ Cual es el nivel de ventas de la tienda al mes?`: Categórica Ordinal (Rangos en SMMLV).
+
+## 4. Perfil Emprendedor (Escala Likert)
+*Bloque de actitudes y percepciones. Todas son **Categóricas Ordinales** (Totalmente de Acuerdo, De Acuerdo, Neutral, En Desacuerdo, Totalmente en Desacuerdo).*
+Estas variables conforman un constructo psicológico que mide:
+- **Autonomía:** Actuar independiente, autónomo con tareas.
+- **Innovación / Creatividad:** Generar nuevas ideas, persona creativa.
+- **Identificación de Oportunidades:** Detectar negocio/trabajo.
+- **Adaptabilidad:** Adaptarse a los cambios.
+- **Resolución de Problemas:** Iniciativa ante situaciones complejas, aprender de errores.
+- **Toma de Riesgos:** Arriesgar recursos, predisposición a asumir riesgos.
+- **Gestión / Management:** Administrar recursos económicos.
+- **Liderazgo / Soft Skills:** Trabajar en equipo, motivar, comunicarse con los demás, consciente de debilidades y fortalezas.
+
+## 5. Extensión, Capacitación y Marketing
+- `¿Ha recibido formación gubernamental?`: Nominal Binaria.
+- `¿Cuáles son las capacitaciones recibidas?`: Múltiple Nominal / Abierta.
+- `¿Le gustaría recibir capacitación?`: Nominal Binaria.
+- `Organiza los siguientes cursos...`: Categórica Múltiple Ponderada (Priorización).
+- `¿Que métodos de visualización o marketing utiliza?`: Categórica de Selección Múltiple.
