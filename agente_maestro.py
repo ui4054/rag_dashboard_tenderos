@@ -182,7 +182,7 @@ class AgenteMaestro:
             if hipercubo:
                 hiper_str = f"\nNÚCLEO DE ANÁLISIS (PICOS Y VALLES):\n{json.dumps(hipercubo, indent=2, ensure_ascii=False)}"
 
-            prompt = f"""Actúa como Analista Senior de Investigación Q1.
+            prompt = f"""Actúa como Experto Senior en Investigación Social y Análisis Cuantitativo.
             
             CONSIGNA: {consigna}
             
@@ -194,10 +194,15 @@ class AgenteMaestro:
             BASE TEÓRICA RELEVANTE:
             {teoria}
             
-            INSTRUCCIÓN: Genera una interpretación profunda siguiendo la regla Dato-Contraste-Relevancia. 
-            El 'Núcleo de Análisis' te indica los extremos y su representatividad; úsalos para validar si el hallazgo es un caso aislado o un patrón significativo.
-            REGLA ESTRICTA DE CONFIDENCIALIDAD: Para custodiar la propiedad intelectual del modelo combinatorio, NUNCA utilices la palabra 'hipercubo' o 'cubo'. Al hacer referencia a los datos de picos y valles, debes llamarlo estrictamente 'núcleo de análisis' o 'Núcleo de Análisis'.
-            No uses etiquetas, asteriscos ni introducciones. Ve directo al grano."""
+            INSTRUCCIÓN: Genera un análisis ejecutivo siguiendo la lógica de Dato, Contraste y Relevancia, pero integrándolo en prosa fluida, profesional y natural.
+            El 'Núcleo de Análisis' te indica los extremos y su representatividad; úsalos para validar si el hallazgo es un caso aislado o un patrón representativo.
+            
+            REGLAS ESTRICTAS DE MANUAL DE ESTILO Y REDACCIÓN:
+            1. CONFIDENCIALIDAD: Para custodiar la propiedad intelectual del modelo combinatorio, NUNCA utilices la palabra 'hipercubo' o 'cubo'. Al hacer referencia a los picos y valles, debes llamarlo estrictamente 'núcleo de análisis'.
+            2. PROHIBICIÓN DE ETIQUETAS Y SINTAXIS MARKDOWN: NUNCA utilices asteriscos de negrita (** o *), ni viñetas, ni corchetes como [PSICOMETRÍA] o [NEGOCIO]. En su lugar, utiliza frases introductorias elegantes y continuas (ejemplo: 'Análisis de la Gestión Administrativa:').
+            3. PROHIBICIÓN DE SINTAXIS LATEX: NUNCA utilices símbolos de dólar ($) ni notación LaTeX para fórmulas o estadísticos. Redacta las cifras y métricas directamente en texto plano limpio (ejemplo: 'OR = 4.64, p = 0.006').
+            4. CONECTORES NARRATIVOS FORMALES: NUNCA uses etiquetas aisladas como 'Dato:', 'Contraste:' o 'Relevancia:'. En su lugar, enlaza los conceptos con conectores fluidos como: 'Con respecto a los datos observados en la muestra:', 'Al contrastar con el marco referencial del estudio:', e 'Implicación analítica:'.
+            5. APERTURA DIRECTA: NUNCA incluyas títulos generales, saludos ni frases de introducción como 'Interpretación Q1'. Inicia en el primer párrafo directamente con el análisis formal."""
 
             for chunk in self.llm.stream(prompt):
                 yield chunk.content

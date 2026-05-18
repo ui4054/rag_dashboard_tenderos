@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/KpiCard.css';
 
 export const KpiCard = ({ title, value, subvalue, icon: Icon, color = "#0284c7", isGauge = false, maxGauge = 100 }) => {
-  const percentage = isGauge ? Math.min(100, Math.round((Number(value) / maxGauge) * 100)) : 0;
+  const numVal = parseFloat(value) || 0;
+  const percentage = isGauge ? Math.min(100, Math.round((numVal / maxGauge) * 100)) : 0;
 
   return (
     <div className="glass-card kpi-card-box">

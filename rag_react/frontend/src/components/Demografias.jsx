@@ -1,8 +1,8 @@
 import React from 'react';
 import '../styles/Demografias.css';
 
-export const Demografias = ({ distribucion = {} }) => {
-  const { edad = {}, educacion = {}, estrato = {}, ingresos = {}, nodo = {} } = distribucion;
+export const DemografiasBarras = ({ distribucion = {} }) => {
+  const { edad = {}, nodo = {} } = distribucion;
 
   const renderBarSection = (title, dataMap, color = "#0284c7") => {
     const entries = Object.entries(dataMap).sort((a,b)=>b[1]-a[1]);
@@ -33,8 +33,18 @@ export const Demografias = ({ distribucion = {} }) => {
     );
   };
 
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+      {renderBarSection("Distribución Geográfica (Nodos)", nodo, "#8b5cf6")}
+      {renderBarSection("Distribución por Edades", edad, "#0ea5e9")}
+    </div>
+  );
+};
+
+export const DemografiasDonuts = ({ distribucion = {} }) => {
+  const { educacion = {}, estrato = {}, ingresos = {} } = distribucion;
+
   const renderDonutSection = (title, dataMap, baseColors) => {
-    // Sort descending
     const entries = Object.entries(dataMap).sort((a,b)=>b[1]-a[1]);
     if (entries.length === 0) return null;
     const total = entries.reduce((a,b)=>a+b[1], 0);
@@ -57,7 +67,6 @@ export const Demografias = ({ distribucion = {} }) => {
             background: `conic-gradient(${conicStops})`,
             position: 'relative', flexShrink: 0
           }}>
-            {/* Agujero de la dona */}
             <div style={{
               position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
               width: '46px', height: '46px', backgroundColor: 'var(--bg-secondary)', borderRadius: '50%'
@@ -78,21 +87,10 @@ export const Demografias = ({ distribucion = {} }) => {
   };
 
   return (
-    <div style={{ marginTop: '24px' }}>
-      
-      {/* SECCIÓN 1: BARRAS COMPACTAS (Geografía y Edades) */}
-      <div className="demo-grid" style={{ marginTop: 0, marginBottom: '20px' }}>
-        {renderBarSection("Distribución Geográfica (Nodos)", nodo, "#8b5cf6")}
-        {renderBarSection("Distribución por Edades", edad, "#0ea5e9")}
-      </div>
-
-      {/* SECCIÓN 2: TORTITAS (Donut Charts) DEMOGRÁFICAS */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-        {renderDonutSection("Nivel Educativo", educacion, ["#38bdf8", "#0284c7", "#0369a1", "#0c4a6e", "#e0f2fe"])}
-        {renderDonutSection("Estrato Socioeconómico", estrato, ["#22c55e", "#16a34a", "#15803d", "#14532d", "#dcfce7"])}
-        {renderDonutSection("Ingresos Mensuales", ingresos, ["#eab308", "#ca8a04", "#a16207", "#713f12", "#fef08a"])}
-      </div>
-
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+      {renderDonutSection("Nivel Educativo", educacion, ["#38bdf8", "#0284c7", "#0369a1", "#0c4a6e", "#e0f2fe"])}
+      {renderDonutSection("Estrato Socioeconómico", estrato, ["#22c55e", "#16a34a", "#15803d", "#14532d", "#dcfce7"])}
+      {renderDonutSection("Ingresos Mensuales", ingresos, ["#eab308", "#ca8a04", "#a16207", "#713f12", "#fef08a"])}
     </div>
   );
 };

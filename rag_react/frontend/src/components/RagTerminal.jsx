@@ -84,9 +84,6 @@ export const RagTerminal = ({ filtrosActivos }) => {
 
       {respuesta && (
         <div className="terminal-output-card">
-          <div className="output-badge">
-            Interpretación Q1
-          </div>
           <p className="output-text">
             {respuesta}
           </p>

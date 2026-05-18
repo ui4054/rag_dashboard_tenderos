@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { apiService } from './services/api';
-import { KpiCard } from './components/KpiCard';
+import { ExecutiveBanner } from './components/ExecutiveBanner';
 import { Semaforo } from './components/Semaforo';
-import { Demografias } from './components/Demografias';
+import { DemografiasBarras, DemografiasDonuts } from './components/Demografias';
 import { HipercuboCards } from './components/HipercuboCards';
 import { MicrodatosExplorer } from './components/MicrodatosExplorer';
 import { RagTerminal } from './components/RagTerminal';
@@ -145,19 +145,27 @@ export default function App() {
               </div>
             </header>
 
-            {/* FILA DE KPIS */}
-            <section className="kpi-grid">
-              <KpiCard title="Muestra Filtrada" value={datosKpis?.muestra_filtrada || 0} subvalue={`de ${datosKpis?.total_muestra || 0} total`} icon={Users} color="#0284c7" />
-              <KpiCard title="Formalización" value={`${datosKpis?.perc_formalizacion || 0}%`} icon={ShieldCheck} color="#22c55e" isGauge maxGauge={100} />
-              <KpiCard title="Resiliencia Media" value={(datosKpis?.resiliencia_media || 0).toFixed(2)} subvalue="/ 5.0 (Likert)" icon={Activity} color="#38bdf8" isGauge maxGauge={5} />
-              <KpiCard title="Riesgo Medio" value={(datosKpis?.riesgo_media || 0).toFixed(2)} subvalue="/ 5.0 (Likert)" icon={AlertTriangle} color="#eab308" isGauge maxGauge={5} />
+            {/* BANNER EJECUTIVO DE KPIS */}
+            <ExecutiveBanner datosKpis={datosKpis} />
+
+            {/* PANEL DUAL: HIPERCUBO (Izquierda) Y DEMOGRAFIA DE BARRAS (Derecha) */}
+            <section className="executive-dual-panel" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '20px', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h3 style={{ fontSize: '0.85rem', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '12px', letterSpacing: '0.08em' }}>
+                  Núcleo de Análisis (Picos y Valles)
+                </h3>
+                <HipercuboCards hipercubo={datosKpis?.hipercubo} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h3 style={{ fontSize: '0.85rem', fontWeight: '800', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '12px', letterSpacing: '0.08em' }}>
+                  Distribución y Representatividad
+                </h3>
+                <DemografiasBarras distribucion={datosKpis?.distribucion_demografica || {}} />
+              </div>
             </section>
 
-            {/* TARJETAS DE HIPERCUBO (Picos y Valles) */}
-            <HipercuboCards hipercubo={datosKpis?.hipercubo} />
-
-            {/* DISTRIBUCION GEOGRAFICA Y DEMOGRAFICA */}
-            <Demografias distribucion={datosKpis?.distribucion_demografica || {}} />
+            {/* SECCION DE DONUTS DEMOGRAFICOS */}
+            <DemografiasDonuts distribucion={datosKpis?.distribucion_demografica || {}} />
 
             {/* SEMAFORO PSICOMETRICO Y MATRIZ DE CRUCE */}
             <Semaforo promedios={datosKpis?.promedios_psicometricos || {}} matrizCorrelacion={datosKpis?.matriz_correlacion || {}} filtrosActivos={filtrosSeleccionados} />

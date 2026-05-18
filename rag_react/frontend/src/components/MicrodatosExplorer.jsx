@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Database, Download, Table, RefreshCw, Eye, EyeOff } from 'lucide-react';
 import { apiService } from '../services/api';
 import '../styles/Microdatos.css';
@@ -8,6 +8,25 @@ export const MicrodatosExplorer = ({ filtrosActivos }) => {
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
   const [mostrarTabla, setMostrarTabla] = useState(false);
+
+  // Recargar los datos automáticamente si el usuario cambia los filtros mientras la tabla está visible
+  useEffect(() => {
+    if (mostrarTabla || dataExport) {
+      const actualizarDatosFiltrados = async () => {
+        setCargando(true);
+        setError('');
+        try {
+          const res = await apiService.exportarMicrodatos(filtrosActivos);
+          setDataExport(res);
+        } catch (err) {
+          setError('Error al actualizar los microdatos con los filtros actuales.');
+        } finally {
+          setCargando(false);
+        }
+      };
+      actualizarDatosFiltrados();
+    }
+  }, [filtrosActivos]);
 
   const cargarDatos = async () => {
     setCargando(true);
@@ -24,31 +43,28 @@ export const MicrodatosExplorer = ({ filtrosActivos }) => {
   };
 
   const handleDownloadCsv = async () => {
-    let rawCsv = dataExport?.csv_raw;
-    if (!rawCsv) {
-      setCargando(true);
-      try {
-        const res = await apiService.exportarMicrodatos(filtrosActivos);
-        rawCsv = res.csv_raw;
-        setDataExport(res);
-      } catch (err) {
-        setError('Error descargando el archivo CSV.');
-        setCargando(false);
-        return;
-      } finally {
-        setCargando(false);
-      }
-    }
+    setCargando(true);
+    setError('');
+    try {
+      // Siempre solicitamos la exportación fresca con los filtros activos en este instante
+      const res = await apiService.exportarMicrodatos(filtrosActivos);
+      setDataExport(res);
+      const rawCsv = res.csv_raw;
 
-    // Disparar descarga en el navegador
-    const blob = new Blob([rawCsv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `tenderos_tolima_q1_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Disparar descarga en el navegador
+      const blob = new Blob([rawCsv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `tenderos_tolima_filtrado_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      setError('Error descargando el archivo CSV filtrado.');
+    } finally {
+      setCargando(false);
+    }
   };
 
   const toggleTabla = () => {

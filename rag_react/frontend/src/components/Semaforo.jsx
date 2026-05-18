@@ -44,7 +44,7 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
       b = Math.round(yellow[2] + f * (red[2] - yellow[2]));
     }
     
-    const textColor = val <= -0.7 ? '#ffffff' : '#0f172a';
+    const textColor = (val <= -0.7 || val >= 0.7) ? '#ffffff' : '#0f172a';
     return { bg: `rgb(${r}, ${g}, ${b})`, color: textColor };
   };
 
@@ -59,17 +59,24 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
 
   const dimensiones = Object.keys(promedios);
 
-  // Mapeo para acortar nombres en los encabezados sin perder claridad
+  // Mapeo completo y refinado para acortar nombres en los encabezados de la matriz
   const acortarNombre = (nombre) => {
     const mapa = {
-      "Gestión del Riesgo": "Gest. Riesgo",
-      "Gestión Financiera": "Gest. Finan.",
-      "Gestión Comercial y Mercadeo": "Comer. Merc.",
-      "Gestión de Inventarios y Logística": "Inv. Logíst.",
-      "Gestión Administrativa": "Administrat.",
-      "Nodo de Significancia": "Nodo",
-      "Antigüedad del Negocio": "Antigüedad",
-      "Perfil de Riesgo": "Perf. Riesgo"
+      "Autonomía": "Autonomía",
+      "Oportunidad": "Oportunidad",
+      "Creatividad": "Creatividad",
+      "Resiliencia": "Resiliencia",
+      "Iniciativa": "Iniciativa",
+      "Gestión Riesgo": "Gest. Riesgo",
+      "Trabajo Equipo": "Trab. Equipo",
+      "Gestión Adm.": "Gest. Adm.",
+      "Aprender del Error": "Apr. Error",
+      "Análisis FODA": "Anál. FODA",
+      "Comunicación": "Comunicación",
+      "Perfil de Riesgo": "Perf. Riesgo",
+      "Pensamiento Creativo": "Pens. Creat.",
+      "Autonomía en Tareas": "Auton. Tareas",
+      "Motivación": "Motivación"
     };
     return mapa[nombre] || (nombre.length > 12 ? nombre.substring(0, 10) + '.' : nombre);
   };
@@ -107,7 +114,6 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
       </div>
 
       <div className="semaforo-tabs">
-
         <button
           onClick={() => setVistaActiva('unidimensional')}
           className={`semaforo-tab-btn ${vistaActiva === 'unidimensional' ? 'active' : ''}`}
@@ -171,7 +177,7 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
                 <Info size={20} style={{ color: 'var(--accent-light)', flexShrink: 0 }} />
                 {hoveredCell ? (
                   <div>
-                    Cruce: <strong>{hoveredCell.d1}</strong> ↔ <strong>{hoveredCell.d2}</strong> | ρ Spearman: <strong style={{ color: getCellColor(hoveredCell.val).color, background: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>{hoveredCell.val.toFixed(2)}</strong> ({getNivelCorrelacionLabel(hoveredCell.val)}) | <em>Clic en la celda para analizar estadígrafo bivariado.</em>
+                    Cruce: <strong>{hoveredCell.d1}</strong> ↔ <strong>{hoveredCell.d2}</strong> | ρ Spearman: <strong style={{ background: getCellColor(hoveredCell.val).bg, color: getCellColor(hoveredCell.val).color, padding: '2px 8px', borderRadius: '4px', fontWeight: '800', boxShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{hoveredCell.val.toFixed(2)}</strong> ({getNivelCorrelacionLabel(hoveredCell.val)}) | <em>Clic en la celda para analizar estadígrafo bivariado.</em>
                   </div>
                 ) : (
                   <div style={{ color: 'var(--text-muted)' }}>Pasa el cursor sobre cualquier celda de la matriz para ver la fuerza de asociación. Haz clic en una celda para analizar la métrica bivariada robusta.</div>
@@ -186,13 +192,20 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
             const cat = clasificar(val);
             return (
               <div key={dim} className="semaforo-card" style={{ background: cat.bg, borderLeft: `4px solid ${cat.border}` }}>
-                <div className="semaforo-card-left">
-                  <span className="semaforo-dot" style={{ background: cat.color, boxShadow: `0 0 8px ${cat.color}` }} />
-                  <span className="semaforo-dim-name">{dim}</span>
-                </div>
-                <div className="semaforo-card-right">
-                  <span className="semaforo-badge" style={{ color: cat.color }}>{cat.label}</span>
-                  <span className="semaforo-value">{val.toFixed(2)}</span>
+                <div className="semaforo-card-content">
+                  <div className="semaforo-card-top">
+                    <div className="semaforo-card-left">
+                      <span className="semaforo-dot" style={{ background: cat.color, boxShadow: `0 0 8px ${cat.color}` }} />
+                      <span className="semaforo-dim-name">{dim}</span>
+                    </div>
+                    <div className="semaforo-card-right">
+                      <span className="semaforo-badge" style={{ color: cat.color }}>{cat.label}</span>
+                      <span className="semaforo-value">{val.toFixed(2)}</span>
+                    </div>
+                  </div>
+                  <div className="semaforo-bar-bg" title={`Puntuación: ${val.toFixed(2)} / 5.0`}>
+                    <div className="semaforo-bar-fill" style={{ width: `${(val / 5) * 100}%`, background: cat.color }} />
+                  </div>
                 </div>
               </div>
             );
@@ -239,28 +252,24 @@ export const Semaforo = ({ promedios = {}, matrizCorrelacion = {}, filtrosActivo
                     <div className="dim-name">{modalData.dim2}</div>
                   </div>
 
-                  <div className="stats-mini-grid">
+                  <div className="stats-mini-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
                     <div className="stat-mini">
-                      <span>ρ (rho)</span>
-                      <strong style={{ color: (modalData.rho_spearman ?? modalData.r_pearson) > 0 ? '#22c55e' : '#ef4444' }}>{modalData.rho_spearman ?? modalData.r_pearson}</strong>
-                    </div>
-                    <div className="stat-mini">
-                      <span>R²</span>
-                      <strong>{(modalData.r_squared * 100).toFixed(1)}%</strong>
+                      <span>ρ Spearman</span>
+                      <strong style={{ color: modalData.rho_spearman > 0 ? '#22c55e' : '#ef4444' }}>{modalData.rho_spearman}</strong>
                     </div>
                     <div className="stat-mini">
                       <span>P-Value</span>
                       <strong style={{ color: modalData.p_value < 0.05 ? '#22c55e' : 'var(--text-muted)' }}>{modalData.p_value}</strong>
                     </div>
                     <div className="stat-mini">
-                      <span>N</span>
+                      <span>Muestra (N)</span>
                       <strong>{modalData.n_muestral}</strong>
                     </div>
                   </div>
 
                   <div className="interpretacion-mini">
-                    <strong>Fuerza de Asociación:</strong> {getNivelCorrelacionLabel(modalData.rho_spearman ?? modalData.r_pearson)}.
-                    {modalData.p_value < 0.05 ? <span style={{ color: '#22c55e', display: 'block', marginTop: '4px' }}>Estadísticamente Significativo (p &lt; 0.05).</span> : <span style={{ color: '#eab308', display: 'block', marginTop: '4px' }}>Asociación no significativa.</span>}
+                    <strong>Fuerza de Asociación Ordinal:</strong> {getNivelCorrelacionLabel(modalData.rho_spearman)}.
+                    {modalData.p_value < 0.05 ? <span style={{ color: '#22c55e', display: 'block', marginTop: '4px' }}>Asociación Monótona Significativa (p &lt; 0.05).</span> : <span style={{ color: '#eab308', display: 'block', marginTop: '4px' }}>Asociación no estadísticamente significativa.</span>}
                   </div>
                 </div>
               )}
